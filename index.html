@@ -297,6 +297,48 @@ body{
   font-family:'DM Mono',monospace;font-weight:500;
 }
 
+
+/* ── COLLAPSED UPLOADED BRIEF CARD ── */
+.uploaded-card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--sur);border:1.5px solid var(--ln);
+  border-radius:var(--r2);padding:16px 18px;
+  animation:cardIn .25s cubic-bezier(.16,1,.3,1);
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(8px) scale(.985);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+.uc-icon{
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:var(--bg2);border:1.5px solid var(--ln);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--so);
+}
+.uc-info{flex:1;min-width:0;}
+.uc-name{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:700;color:var(--hd);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:2px;
+}
+.uc-meta{font-size:12px;color:var(--mu);}
+.uc-replace{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 12px;background:var(--bg2);border:1.5px solid var(--ln);
+  border-radius:8px;color:var(--so);
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .15s;flex-shrink:0;
+}
+.uc-replace:hover{border-color:var(--hd);color:var(--hd);background:var(--sur);}
+.uc-remove{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  background:transparent;border:1.5px solid var(--ln);
+  color:var(--mu);cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;
+}
+.uc-remove:hover{border-color:var(--red);color:var(--red);background:var(--redlt);}
+
 /* Output options panel */
 .oo-panel{
   background:var(--sur);border:1.5px solid var(--ln);
@@ -792,6 +834,130 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
   width:100%;height:100%;display:flex;align-items:center;justify-content:center;
   font-size:42px;opacity:.5;
 }
+
+.img-pick-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:7px 10px;
+  background:linear-gradient(180deg,transparent,rgba(13,13,8,.85));
+  color:#fff;font-size:11px;font-weight:600;letter-spacing:.2px;
+  z-index:1;
+}
+
+.skill-explainer{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--bg2);border:1px solid var(--ln);
+  border-radius:var(--r);padding:14px 16px;margin-bottom:16px;
+}
+.se-icon{
+  flex-shrink:0;color:var(--so);
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+.se-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;color:var(--hd);margin-bottom:3px;
+}
+.se-text{font-size:12px;color:var(--so);line-height:1.55;}
+
+/* Add Brand Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(13,13,8,.55);
+  display:none;align-items:center;justify-content:center;z-index:300;
+  padding:20px;
+}
+.modal-overlay.on{display:flex;}
+.modal-box{
+  background:var(--sur);border-radius:var(--r2);
+  width:100%;max-width:560px;max-height:90vh;overflow:auto;
+  box-shadow:0 24px 60px rgba(0,0,0,.25);
+  animation:modalIn .25s cubic-bezier(.16,1,.3,1);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-head{
+  padding:20px 22px;border-bottom:1px solid var(--ln);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:17px;font-weight:800;color:var(--hd);letter-spacing:-.3px;
+}
+.modal-close{
+  background:transparent;border:none;color:var(--mu);
+  font-size:20px;cursor:pointer;padding:4px 10px;border-radius:6px;
+}
+.modal-close:hover{background:var(--bg2);color:var(--hd);}
+.modal-body{padding:20px 22px;}
+.flow-picker{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+.flow-card{
+  border:2px solid var(--ln);border-radius:var(--r);padding:18px 16px;
+  cursor:pointer;transition:all .15s;text-align:center;
+  background:var(--sur);
+}
+.flow-card:hover{border-color:var(--so);}
+.flow-card.on{border-color:var(--hd);background:var(--bg2);}
+.flow-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--bg2);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;color:var(--so);
+}
+.flow-card.on .flow-icon{background:var(--hd);color:#fff;}
+.flow-name{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:700;color:var(--hd);margin-bottom:3px;
+}
+.flow-desc{font-size:11px;color:var(--mu);line-height:1.45;}
+.flow-tag{
+  display:inline-block;font-size:9px;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;color:var(--hd);
+  background:var(--yel);padding:2px 6px;border-radius:3px;margin-bottom:8px;
+}
+
+.upload-ci-zone{
+  border:2px dashed var(--ln2);border-radius:var(--r);
+  padding:32px 20px;text-align:center;cursor:pointer;
+  transition:all .15s;background:var(--bg2);
+}
+.upload-ci-zone:hover,.upload-ci-zone.drag{border-color:var(--hd);background:var(--bg);}
+.uci-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--sur);border:1px solid var(--ln);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;
+}
+.uci-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;color:var(--hd);margin-bottom:3px;
+}
+.uci-sub{font-size:11px;color:var(--mu);}
+.uci-fmts{display:flex;justify-content:center;gap:6px;margin-top:10px;}
+
+/* Extraction progress */
+.extract-progress{
+  background:var(--bg2);border:1px solid var(--ln);
+  border-radius:var(--r);padding:14px 16px;margin-top:14px;display:none;
+}
+.extract-progress.on{display:block;}
+.ep-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:700;color:var(--hd);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.ep-row{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 0;font-size:12px;color:var(--so);
+}
+.ep-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--ln2);flex-shrink:0;
+  transition:background .3s;
+}
+.ep-row.on .ep-dot{background:var(--hd);animation:pulseDot 1.2s ease-in-out infinite;}
+.ep-row.done .ep-dot{background:var(--grn);}
+@keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+.modal-foot{
+  padding:14px 22px;border-top:1px solid var(--ln);
+  display:flex;justify-content:flex-end;gap:8px;background:var(--bg2);
+}
 .assemble-row{
   display:flex;gap:10px;align-items:center;justify-content:space-between;
   padding:14px 16px;background:var(--bg2);
@@ -1030,6 +1196,24 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
               <div class="uz-t">Drop your brief here</div>
               <div class="uz-s">Click to browse, or drag and drop a file</div>
               <div class="uz-fmts"><span class="uz-fmt">.pdf</span><span class="uz-fmt">.doc</span><span class="uz-fmt">.docx</span></div>
+            </div>
+
+            <!-- Collapsed uploaded brief card -->
+            <div class="uploaded-card" id="uploaded-card" style="display:none">
+              <div class="uc-icon">
+                <svg viewBox="0 0 22 22" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-4-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 2v6h4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="uc-info">
+                <div class="uc-name" id="uc-name">brief.pdf</div>
+                <div class="uc-meta" id="uc-meta">Uploaded just now &middot; <span style="color:var(--grn)">&#10003; Ready to process</span></div>
+              </div>
+              <button class="uc-replace" onclick="replaceUpload()" title="Replace file">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l3-3 3 3M5 2v8M12 9l-3 3-3-3M9 12V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Replace
+              </button>
+              <button class="uc-remove" onclick="removeUpload()" title="Remove file">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
             </div>
 
             <!-- OUTPUT OPTIONS -->
@@ -1445,14 +1629,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
           <!-- BRAND SKILLS -->
           <div class="adm-pg" id="adm-skills">
             <div class="pg-h">Brand Skills</div>
-            <div class="pg-s">Compile structured brand knowledge files used by Claude when generating copy and visuals for each client</div>
+            <div class="pg-s">Compile structured brand knowledge that Claude uses when generating copy and visuals for each client</div>
+
+            <!-- Workflow explainer -->
+            <div class="skill-explainer">
+              <div class="se-icon">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M11 7v5M11 15h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="se-title">How brand skills work</div>
+                <div class="se-text">
+                  Choose <strong>Auto</strong> to upload a brand guide PDF — Claude reads it and pre-fills every field automatically.
+                  Choose <strong>Manual</strong> to type the details yourself.
+                  Either way, Claude compiles the final skill file from your inputs and uses it on every generation for that brand.
+                </div>
+              </div>
+            </div>
 
             <div class="skills-toolbar">
               <div style="font-size:13px;color:var(--mu)">
                 <strong style="color:var(--hd)" id="skills-count">3</strong> brand skills active &middot;
                 <strong style="color:var(--hd)" id="skills-compiled">2</strong> compiled
               </div>
-              <button class="btn prim" onclick="addNewBrand()">+ Add Brand</button>
+              <button class="btn prim" onclick="openAddBrandModal()">+ Add Brand</button>
             </div>
 
             <div class="skills-grid" id="skills-grid">
@@ -1462,7 +1661,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                   <div class="skill-card-icon" style="background:#FFCB05;color:#0d0d08">M</div>
                   <div class="skill-card-info">
                     <div class="skill-card-name">MTN Uganda</div>
-                    <div class="skill-card-desc">Telecom &middot; Yellow + Black &middot; Bold tone</div>
+                    <div class="skill-card-desc">Telecom &middot; Auto-extracted from CI &middot; v2.1</div>
                   </div>
                   <span class="chip g">Compiled</span>
                 </div>
@@ -1480,7 +1679,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                   <div class="skill-card-icon" style="background:#DC1E28;color:#fff">A</div>
                   <div class="skill-card-info">
                     <div class="skill-card-name">Absa Uganda</div>
-                    <div class="skill-card-desc">Banking &middot; Red + Charcoal &middot; Trusted tone</div>
+                    <div class="skill-card-desc">Banking &middot; Manual entry &middot; v1.8</div>
                   </div>
                   <span class="chip g">Compiled</span>
                 </div>
@@ -1498,7 +1697,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                   <div class="skill-card-icon" style="background:#0064B4;color:#fff">D</div>
                   <div class="skill-card-info">
                     <div class="skill-card-name">DStv Uganda</div>
-                    <div class="skill-card-desc">Pay-TV &middot; Blue + Charcoal &middot; Energetic tone</div>
+                    <div class="skill-card-desc">Pay-TV &middot; Manual entry &middot; v0.9</div>
                   </div>
                   <span class="chip y">Draft</span>
                 </div>
@@ -1510,15 +1709,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                 </div>
               </div>
 
-              <!-- Add new -->
-              <div class="skill-empty-add" onclick="addNewBrand()">
+              <!-- Add new card -->
+              <div class="skill-empty-add" onclick="openAddBrandModal()">
                 <div class="skill-empty-icon">+</div>
                 <div class="skill-empty-text">Add a New Brand</div>
-                <div style="font-size:11px;color:var(--mu);text-align:center;max-width:180px">Upload a brand guide PDF or build the skill manually</div>
+                <div style="font-size:11px;color:var(--mu);text-align:center;max-width:200px">Upload a brand guide PDF or fill in the details manually</div>
               </div>
             </div>
 
-            <!-- Brand skill editor (slides in below grid when a brand is opened) -->
+            <!-- Skill detail editor -->
             <div class="skill-detail" id="skill-detail" style="margin-top:18px">
               <div class="skill-detail-head">
                 <div class="skill-card-icon" id="skill-detail-icon" style="background:#FFCB05;color:#0d0d08">M</div>
@@ -1546,13 +1745,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                 </div>
                 <div class="field-block">
                   <label>Tagline</label>
-                  <input id="sk-tagline" value="Y&apos;ello, your future is calling.">
+                  <input id="sk-tagline" value="Y'ello, your future is calling.">
                 </div>
                 <div class="field-block">
                   <label>Example Headlines</label>
                   <textarea id="sk-examples">Send Money. Save Time. Live More.
 Everything you need, in your pocket.
-The smartest move you&apos;ll make today.</textarea>
+The smartest move you'll make today.</textarea>
                 </div>
               </div>
 
@@ -1596,7 +1795,7 @@ vs Lyca: We are the brand that grew with Uganda &mdash; not the cheap alternativ
               </div>
 
               <div class="skill-tab-content" id="skill-tab-compiled">
-                <div style="font-size:12px;color:var(--mu);margin-bottom:10px">This is the compiled skill file injected into Claude as a system prompt for every MTN Uganda brief or copy request. It updates automatically when you save changes.</div>
+                <div style="font-size:12px;color:var(--mu);margin-bottom:10px">This is the compiled skill file injected into Claude as a system prompt for every brief or copy request for this brand. It refreshes when you click <strong>Re-compile</strong>.</div>
                 <pre id="sk-compiled" style="background:var(--bg2);border:1px solid var(--ln);border-radius:var(--r);padding:14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);line-height:1.6;white-space:pre-wrap;max-height:340px;overflow:auto"># MTN Uganda Brand Skill v2.1
 
 ## Voice
@@ -1631,7 +1830,7 @@ Generating any copy, headline, body text, CTA, or visual brief for MTN Uganda.</
             </div>
           </div>
 
-          <!-- ALL WORK -->
+                    <!-- ALL WORK -->
           <div class="adm-pg" id="adm-work">
             <div class="pg-h">All Work</div>
             <div class="pg-s">Every output generated on the platform, across all users and studios</div>
@@ -1675,7 +1874,104 @@ Generating any copy, headline, body text, CTA, or visual brief for MTN Uganda.</
     </div>
 
   </div>
+
+<!-- ADD BRAND MODAL -->
+<div class="modal-overlay" id="add-brand-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Add a New Brand</div>
+      <button class="modal-close" onclick="closeAddBrandModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-block">
+        <label>Brand Name</label>
+        <input id="nb-name" placeholder="e.g. Stanbic Bank Uganda">
+      </div>
+
+      <label class="flabel" style="margin-top:6px">How would you like to set up the skill?</label>
+      <div class="flow-picker" style="margin-top:8px">
+        <div class="flow-card on" id="flow-auto" onclick="selectFlow('auto')">
+          <div class="flow-tag">Recommended</div>
+          <div class="flow-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 4v9M7 9l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div class="flow-name">Auto from CI</div>
+          <div class="flow-desc">Upload the brand guide PDF — Claude reads it and fills every field for you</div>
+        </div>
+        <div class="flow-card" id="flow-manual" onclick="selectFlow('manual')">
+          <div class="flow-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 18l3.5-1L17 7.5a1.5 1.5 0 0 0 0-2.1L17 5a1.5 1.5 0 0 0-2.1 0L5.5 14.5 4 18z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="flow-name">Manual Entry</div>
+          <div class="flow-desc">Type the voice, colours, fonts and rules yourself in a guided form</div>
+        </div>
+      </div>
+
+      <!-- Auto flow content -->
+      <div id="flow-content-auto">
+        <label class="upload-ci-zone" id="ci-zone" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="onCIDrop(event)">
+          <input type="file" accept=".pdf,.doc,.docx" style="display:none" onchange="onCIFile(this)" id="ci-input">
+          <div class="uci-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-4-6z" stroke="currentColor" stroke-width="1.5"/><path d="M14 2v6h4M8 13h6M8 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="uci-title">Drop brand guide PDF here</div>
+          <div class="uci-sub">or click to browse — Claude will extract everything</div>
+          <div class="uci-fmts">
+            <span class="uz-fmt">.pdf</span>
+            <span class="uz-fmt">.doc</span>
+            <span class="uz-fmt">.docx</span>
+          </div>
+        </label>
+
+        <div class="extract-progress" id="extract-progress">
+          <div class="ep-title"><span class="spin">&#x21bb;</span> Extracting brand details with Claude</div>
+          <div class="ep-row" id="ep-1"><span class="ep-dot"></span><span>Reading document</span></div>
+          <div class="ep-row" id="ep-2"><span class="ep-dot"></span><span>Identifying brand voice and tone</span></div>
+          <div class="ep-row" id="ep-3"><span class="ep-dot"></span><span>Extracting colours and typography</span></div>
+          <div class="ep-row" id="ep-4"><span class="ep-dot"></span><span>Pulling rules and dos/don't</span></div>
+          <div class="ep-row" id="ep-5"><span class="ep-dot"></span><span>Compiling skill file</span></div>
+        </div>
+      </div>
+
+      <!-- Manual flow content -->
+      <div id="flow-content-manual" style="display:none">
+        <div class="field-block">
+          <label>Brand Personality</label>
+          <textarea id="nb-personality" placeholder="e.g. Bold, energetic, aspirational. We speak to ambitious Ugandans..."></textarea>
+        </div>
+        <div class="field-block">
+          <label>Target Audience</label>
+          <input id="nb-audience" placeholder="e.g. Young professionals 25-40, urban Uganda">
+        </div>
+        <div class="field-block">
+          <label>Primary Colours (hex codes)</label>
+          <input id="nb-colors" placeholder="e.g. #002C5F (navy), #FFCB05 (yellow)">
+        </div>
+        <div class="field-block">
+          <label>Typography</label>
+          <input id="nb-fonts" placeholder="e.g. Heading: Poppins Bold, Body: Inter Regular">
+        </div>
+        <div class="field-block">
+          <label>Always Do (one per line)</label>
+          <textarea id="nb-do" placeholder="- Use active voice&#10;- Lead with benefit&#10;- Include local cues"></textarea>
+        </div>
+        <div class="field-block">
+          <label>Never Do (one per line)</label>
+          <textarea id="nb-dont" placeholder="- Avoid jargon&#10;- No fear tactics"></textarea>
+        </div>
+        <div style="font-size:11px;color:var(--mu);background:var(--bg2);border:1px solid var(--ln);border-radius:6px;padding:10px 12px">
+          When you click <strong style="color:var(--hd)">Save &amp; Compile</strong>, Claude takes everything you entered and turns it into a structured skill file used on every generation for this brand.
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeAddBrandModal()">Cancel</button>
+      <button class="btn prim" id="brand-save-btn" onclick="saveBrand()">Save &amp; Compile</button>
+    </div>
+  </div>
 </div>
+
+</div><!-- end shell -->
 
 <script>
 // ═══════════════════════════════════════════════════════
@@ -1764,11 +2060,44 @@ function onFile(inp){const f=inp.files[0];if(f)showOO(f);}
 function showOO(file){
   const p=document.getElementById('oo-panel');p.style.display='block';p._f=file;
   document.getElementById('pip-fname').textContent=file.name;
+
+  // Collapse the upload zone into a compact uploaded-card
+  document.getElementById('bzone').style.display='none';
+  const uc = document.getElementById('uploaded-card');
+  uc.style.display='flex';
+  document.getElementById('uc-name').textContent = file.name;
+  const sizeKB = (file.size/1024).toFixed(0);
+  const sizeStr = sizeKB > 1024 ? (sizeKB/1024).toFixed(1)+' MB' : sizeKB+' KB';
+  document.getElementById('uc-meta').innerHTML = `${sizeStr} \u00b7 Uploaded just now \u00b7 <span style="color:var(--grn)">\u2713 Ready to process</span>`;
+
   // Read file text for Claude
   const reader=new FileReader();
   reader.onload=e=>{briefFileContent=e.target.result.slice(0,8000);};
   reader.readAsText(file);
   setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+}
+
+function replaceUpload(){
+  // Reset upload state to allow new file selection
+  document.getElementById('uploaded-card').style.display='none';
+  document.getElementById('oo-panel').style.display='none';
+  document.getElementById('bzone').style.display='block';
+  briefFileContent=null;
+  // Clear file input so the same file can be re-selected if needed
+  const inp = document.querySelector('#bzone input[type=file]');
+  if(inp) inp.value = '';
+  // Trigger native click on the file input
+  if(inp) inp.click();
+}
+
+function removeUpload(){
+  if(!confirm('Remove this brief?')) return;
+  document.getElementById('uploaded-card').style.display='none';
+  document.getElementById('oo-panel').style.display='none';
+  document.getElementById('bzone').style.display='block';
+  briefFileContent=null;
+  const inp = document.querySelector('#bzone input[type=file]');
+  if(inp) inp.value = '';
 }
 
 async function startPip(){
@@ -1827,27 +2156,63 @@ async function startPip(){
     document.getElementById('pt3').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
   }
 
-  // Step 5: REAL Image generation — generate THREE images
+  // Step 5: REAL Image generation — TEXT-FREE concept visuals
   const generatedImages = [];
+  let visualConcepts = [];
   try {
     activatePipStep(4);
-    document.getElementById('pd4').textContent='Generating 3 visual options...';
+    document.getElementById('pd4').textContent='Drafting visual concepts...';
 
-    const headline = claudeOptions?.options?.[0]?.headline || 'Send Money. Save Time. Live More.';
-    const client   = claudeOptions?.client   || 'MTN Uganda';
-    const baseImgPrompt = `Professional advertising campaign visual for ${client}. ${headline}. Ugandan setting, vibrant colours, photorealistic, marketing quality, clean composition, no text overlays.`;
+    // Step 5a: Claude as creative director — generate 3 visual concept descriptions
+    // (scenes/moods only, never brand names or text)
+    const objective = claudeOptions?.objective || 'campaign objective';
+    const briefSnip = (briefFileContent||'').slice(0,2500);
 
-    // Three different prompt angles for variety
-    const promptVariants = [
-      baseImgPrompt + ' Wide shot, environmental context, lifestyle.',
-      baseImgPrompt + ' Close-up, emotional, human-centred portrait.',
-      baseImgPrompt + ' Bold graphic, clean background, product-focused.'
-    ];
+    const conceptSystemPrompt = `You are an art director at a top advertising agency. You write image generation prompts that describe ONLY the scene, subject, lighting, mood, and composition. You NEVER include brand names, product names, logos, words, headlines, signs, billboards, posters, screens with text, or anything that an image AI might render as text. The visuals are text-free backgrounds — text and logos are added later in Figma. Always respond with ONLY valid JSON, no markdown.`;
+
+    const conceptUserPrompt = `Brief objective: ${objective}\n\nBrief excerpt:\n${briefSnip}\n\nGenerate THREE distinct visual concept prompts for an image AI (Flux). Each must capture the IDEA of the brief through scene, subject and emotion only — NO brand names, NO text, NO logos, NO signs, NO billboards. Each concept should be a different angle: wide environmental, intimate close-up, and bold conceptual.\n\nReturn ONLY valid JSON:\n{"concepts":[{"label":"Wide / Lifestyle","prompt":"detailed scene description, photorealistic, no text"},{"label":"Close-up / Portrait","prompt":"..."},{"label":"Bold / Conceptual","prompt":"..."}]}`;
 
     if(AI_MODE==='puter'){
-      const promises = promptVariants.map(pr =>
-        puter.ai.txt2img(pr,{model:'black-forest-labs/flux-schnell'})
-          .catch(e=>{console.warn('image fail',e);return null;})
+      try {
+        const cResp = await puter.ai.chat(conceptUserPrompt, {model:'claude-sonnet-4-6', systemPrompt:conceptSystemPrompt});
+        const cRaw = typeof cResp==='string'?cResp:(cResp?.message?.content?.[0]?.text||cResp?.content?.[0]?.text||'');
+        const parsed = JSON.parse(cRaw.replace(/```json|```/g,'').trim());
+        if(parsed?.concepts?.length) visualConcepts = parsed.concepts;
+      } catch(e){console.warn('concept gen failed',e);}
+    } else {
+      try {
+        const r = await fetch('https://api.anthropic.com/v1/messages',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','x-api-key':API_KEYS.anthropic,'anthropic-version':'2023-06-01'},
+          body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:conceptSystemPrompt,messages:[{role:'user',content:conceptUserPrompt}]})
+        });
+        const data=await r.json();
+        const raw=data?.content?.[0]?.text||'';
+        const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+        if(parsed?.concepts?.length) visualConcepts = parsed.concepts;
+      } catch(e){console.warn('concept gen failed',e);}
+    }
+
+    // Fallback concepts if Claude failed
+    if(visualConcepts.length<3){
+      visualConcepts = [
+        {label:'Wide / Lifestyle',  prompt:'Wide cinematic photograph of a young African woman walking through a vibrant Kampala neighbourhood at golden hour, holding a smartphone, smiling, motion blur, warm orange and yellow tones, photorealistic, depth of field, no text, no signs, no logos, no billboards, no posters, blank walls'},
+        {label:'Close-up / Portrait', prompt:'Intimate close-up portrait of a young Ugandan professional looking at her phone with a relaxed satisfied smile, soft natural window light, shallow depth of field, photorealistic skin texture, neutral background, no text, no logos, no screens with text'},
+        {label:'Bold / Conceptual',   prompt:'Minimalist conceptual product photography of hands holding a smartphone against a clean yellow gradient background, soft studio lighting, premium feel, high contrast, photorealistic, no text overlays, no logos, no UI elements visible on screen'}
+      ];
+    }
+
+    document.getElementById('pd4').textContent='Generating 3 visual options...';
+
+    // Strong negative prompt to suppress any accidental text/logo rendering
+    const NEGATIVE = 'text, words, letters, typography, writing, captions, headlines, logos, brand names, watermarks, signatures, signs, billboards, posters, banners, labels, screens with text, UI elements, social media interface, phone interface, app interface, low quality, blurry, distorted, deformed, ugly, amateur';
+
+    if(AI_MODE==='puter'){
+      const promises = visualConcepts.slice(0,3).map(c =>
+        puter.ai.txt2img(c.prompt + ' Absolutely no text, no logos, no signs of any kind in the image.', {
+          model:'black-forest-labs/flux-schnell'
+        })
+        .catch(e=>{console.warn('image fail',e);return null;})
       );
       const results = await Promise.all(promises);
       results.forEach(r=>{if(r)generatedImages.push(r);});
@@ -1855,8 +2220,8 @@ async function startPip(){
 
     completePipStep(4);
     document.getElementById('pd4').textContent= generatedImages.length>0
-      ? `${generatedImages.length} visual options created`
-      : 'Visual assets created';
+      ? `${generatedImages.length} text-free visual options created`
+      : 'Visual concepts ready';
     document.getElementById('pt4').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
     updateProgressBar((5/PSTEPS.length)*100);
   } catch(err){
@@ -1875,7 +2240,7 @@ async function startPip(){
   // Smooth fade out then results
   await dl(400);
   pc.style.display='none';
-  showRes(file.name, claudeOptions, generatedImages);
+  showRes(file.name, claudeOptions, generatedImages, visualConcepts);
 }
 
 function activatePipStep(i){
@@ -1924,8 +2289,9 @@ let selectedCopyIdx = 0;
 let selectedImgIdx  = -1;
 let lastClaudeOptions = null;
 let lastGeneratedImages = [];
+let lastConcepts = [];
 
-function showRes(fname, claudeData, imgList){
+function showRes(fname, claudeData, imgList, concepts){
   const base=fname.replace(/\.(pdf|doc|docx)$/i,'');
   const qty = selQty;
   const lbl = selRatioLbl;
@@ -1960,28 +2326,31 @@ function showRes(fname, claudeData, imgList){
 
   // Build image gallery (always show 3 picks)
   lastGeneratedImages = imgList || [];
+  lastConcepts = concepts || [];
   const gal = document.getElementById('img-gallery');
   const imgCount = 3;
   gal.innerHTML='';
+  const fallbackLabels=['Wide / Lifestyle','Close-up / Portrait','Bold / Conceptual'];
   for(let i=0;i<imgCount;i++){
     const pick = document.createElement('div');
     pick.className='img-pick';
     pick.dataset.idx = i;
     pick.onclick = ()=>selectImg(i);
-    pick.innerHTML = `<div class="img-pick-check"></div>`;
+    const conceptLabel = (lastConcepts[i]?.label) || fallbackLabels[i];
+    pick.innerHTML = `<div class="img-pick-check"></div><div class="img-pick-label">${conceptLabel}</div>`;
 
     if(lastGeneratedImages[i]){
       // Use real generated image
       const realImg = lastGeneratedImages[i];
       realImg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-      pick.appendChild(realImg);
+      pick.insertBefore(realImg, pick.firstChild);
     } else {
       // Fallback gradient + emoji placeholder
       const fallback = document.createElement('div');
       fallback.className='img-pick-fallback';
       fallback.style.background = `linear-gradient(${135 + i*60}deg,#FFCB05,#${['f59e0b','ff8a4c','d97706'][i]||'f59e0b'})`;
       fallback.textContent = ['🌅','📱','💛'][i];
-      pick.appendChild(fallback);
+      pick.insertBefore(fallback, pick.firstChild);
     }
     gal.appendChild(pick);
   }
@@ -2019,8 +2388,9 @@ function selectImg(i){
   document.querySelectorAll('.img-pick').forEach((el,idx)=>{
     el.classList.toggle('on', idx===i);
   });
-  const labels=['Wide / Lifestyle','Close-up / Portrait','Graphic / Product'];
-  document.getElementById('assemble-sel-status').textContent = `Visual ${i+1} (${labels[i]||'option '+(i+1)})`;
+  const fallbackLabels=['Wide / Lifestyle','Close-up / Portrait','Bold / Conceptual'];
+  const label = (lastConcepts && lastConcepts[i]?.label) || fallbackLabels[i] || `Option ${i+1}`;
+  document.getElementById('assemble-sel-status').textContent = `Visual ${i+1} (${label})`;
   const ab = document.getElementById('assemble-btn');
   ab.disabled = false;
   ab.style.opacity = '1';
@@ -2044,10 +2414,13 @@ function assembleSelection(){
 
 function resetBrief(){
   document.getElementById('bzone').style.display='block';
+  document.getElementById('uploaded-card').style.display='none';
   document.getElementById('oo-panel').style.display='none';
   document.getElementById('pip-card').style.display='none';
   document.getElementById('res-sec').style.display='none';
   briefFileContent=null;
+  const inp = document.querySelector('#bzone input[type=file]');
+  if(inp) inp.value = '';
 }
 
 // ─── IMAGE STUDIO ───
@@ -2298,9 +2671,9 @@ function removeUserRow(rowId){
 
 // ─── BRAND SKILLS (Admin) ───
 const SKILL_DATA = {
-  mtn:  {name:'MTN Uganda',   desc:'Telecom \u00b7 v2.1 \u00b7 Last compiled 2 days ago', icon:'M', bg:'#FFCB05', fg:'#0d0d08'},
-  absa: {name:'Absa Uganda',  desc:'Banking \u00b7 v1.8 \u00b7 Last compiled 5 days ago', icon:'A', bg:'#DC1E28', fg:'#fff'},
-  dstv: {name:'DStv Uganda',  desc:'Pay-TV \u00b7 v0.9 (Draft) \u00b7 Updated 1 week ago', icon:'D', bg:'#0064B4', fg:'#fff'}
+  mtn:  {name:'MTN Uganda',   desc:'Telecom \u00b7 Auto-extracted from CI \u00b7 v2.1', icon:'M', bg:'#FFCB05', fg:'#0d0d08'},
+  absa: {name:'Absa Uganda',  desc:'Banking \u00b7 Manual entry \u00b7 v1.8', icon:'A', bg:'#DC1E28', fg:'#fff'},
+  dstv: {name:'DStv Uganda',  desc:'Pay-TV \u00b7 Manual entry \u00b7 v0.9 (Draft)', icon:'D', bg:'#0064B4', fg:'#fff'}
 };
 function openSkill(id){
   const d = SKILL_DATA[id];
@@ -2332,19 +2705,141 @@ function saveSkillDraft(){
     s.innerHTML = '<span>\u2713</span> Compiled and active';
   }, 2000);
 }
-function compileSkill(){
+async function compileSkill(){
   const s = document.getElementById('compile-status');
   s.classList.remove('ok');
-  s.innerHTML = '<span class="spin">\u21bb</span> Compiling skill file...';
-  setTimeout(()=>{
-    s.classList.add('ok');
-    s.innerHTML = '<span>\u2713</span> Compiled and active \u2014 v2.2';
-  }, 1500);
+  s.innerHTML = '<span class="spin">\u21bb</span> Re-compiling with Claude...';
+  // Gather current field values
+  const data = {
+    personality: document.getElementById('sk-personality')?.value || '',
+    audience:    document.getElementById('sk-audience')?.value || '',
+    tagline:     document.getElementById('sk-tagline')?.value || '',
+    examples:    document.getElementById('sk-examples')?.value || '',
+    colors:      document.getElementById('sk-colors')?.value || '',
+    fonts:       document.getElementById('sk-fonts')?.value || '',
+    visualNotes: document.getElementById('sk-visual-notes')?.value || '',
+    do:          document.getElementById('sk-do')?.value || '',
+    dont:        document.getElementById('sk-dont')?.value || '',
+    diff:        document.getElementById('sk-diff')?.value || ''
+  };
+  await dl(1300);
+  // In production: send fields to Claude, get back compiled skill markdown
+  const compiled = `# ${document.getElementById('skill-detail-name').textContent} Brand Skill v2.2 (re-compiled)\n\n## Voice\n${data.personality}\nAudience: ${data.audience}\nTagline: ${data.tagline}\n\n## Visual Identity\nColours: ${data.colors}\nType: ${data.fonts}\nStyle: ${data.visualNotes}\n\n## Rules\nDO:\n${data.do}\n\nDO NOT:\n${data.dont}\n\n## Differentiation\n${data.diff}`;
+  document.getElementById('sk-compiled').textContent = compiled;
+  s.classList.add('ok');
+  s.innerHTML = '<span>\u2713</span> Re-compiled \u2014 v2.2 now active';
 }
-function addNewBrand(){
-  const name = prompt('Brand name (e.g. "Stanbic Bank"):');
-  if(!name)return;
-  alert(`In production: opens a setup wizard to upload brand guide PDF or build the skill manually for "${name}". The platform extracts colours, voice, fonts and rules using Claude, then compiles the skill file.`);
+
+// ─── ADD BRAND MODAL ───
+let currentFlow = 'auto';
+
+function openAddBrandModal(){
+  document.getElementById('add-brand-modal').classList.add('on');
+  // Reset to auto flow
+  selectFlow('auto');
+  document.getElementById('nb-name').value = '';
+  document.getElementById('extract-progress').classList.remove('on');
+  resetExtractRows();
+}
+function closeAddBrandModal(){
+  document.getElementById('add-brand-modal').classList.remove('on');
+}
+function selectFlow(f){
+  currentFlow = f;
+  document.getElementById('flow-auto').classList.toggle('on', f==='auto');
+  document.getElementById('flow-manual').classList.toggle('on', f==='manual');
+  document.getElementById('flow-content-auto').style.display   = f==='auto'   ? 'block':'none';
+  document.getElementById('flow-content-manual').style.display = f==='manual' ? 'block':'none';
+  // Update save button label based on flow
+  const btn = document.getElementById('brand-save-btn');
+  btn.textContent = f==='manual' ? 'Save & Compile' : 'Done';
+  if(f==='auto') btn.style.display = 'none'; else btn.style.display = '';
+}
+
+function onCIDrop(e){
+  e.preventDefault();
+  document.getElementById('ci-zone').classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if(f) processCI(f);
+}
+function onCIFile(inp){
+  const f = inp.files[0];
+  if(f) processCI(f);
+}
+
+function resetExtractRows(){
+  for(let i=1;i<=5;i++){
+    const row=document.getElementById('ep-'+i);
+    if(row){row.classList.remove('on','done');}
+  }
+}
+
+async function processCI(file){
+  const ep = document.getElementById('extract-progress');
+  ep.classList.add('on');
+  resetExtractRows();
+
+  const steps = [800, 1400, 1100, 1300, 900];
+  const t0 = Date.now();
+
+  // Read file content for Claude
+  let fileContent = '';
+  try{
+    const reader = new FileReader();
+    fileContent = await new Promise((res,rej)=>{
+      reader.onload = e => res(e.target.result.slice(0,8000));
+      reader.onerror = rej;
+      reader.readAsText(file);
+    });
+  }catch(e){fileContent = '';}
+
+  for(let i=0;i<5;i++){
+    const row=document.getElementById('ep-'+(i+1));
+    row.classList.add('on');
+    await dl(steps[i]);
+    row.classList.remove('on');
+    row.classList.add('done');
+  }
+
+  // Trigger Claude to extract brand details
+  let extracted = null;
+  if(fileContent && AI_MODE==='puter'){
+    try{
+      const sys = 'You are a senior brand strategist. Extract structured brand information from a brand identity document. Return ONLY valid JSON, no markdown.';
+      const usr = `Brand guide content:\n${fileContent}\n\nExtract the brand information. Return JSON:\n{"personality":"...","audience":"...","tagline":"...","examples":"3-4 example headlines, one per line","colors":"hex codes with names","fonts":"heading and body fonts","visualNotes":"...","do":"bulleted list with hyphens","dont":"bulleted list with hyphens","diff":"competitive differentiation"}`;
+      const resp = await puter.ai.chat(usr, {model:'claude-sonnet-4-6', systemPrompt:sys});
+      const raw = typeof resp==='string'?resp:(resp?.message?.content?.[0]?.text||resp?.content?.[0]?.text||'');
+      extracted = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    }catch(e){console.warn('CI extraction failed',e);}
+  }
+
+  // Show success summary in the modal
+  ep.innerHTML = `
+    <div class="ep-title" style="color:var(--grn)"><span>\u2713</span> Brand details extracted successfully</div>
+    <div style="font-size:12px;color:var(--so);line-height:1.6">
+      ${extracted ? `Voice, audience, ${extracted.colors ? 'colours' : 'identity'}, typography and ${extracted.do ? 'rules' : 'guidelines'} all populated. Click <strong>Done</strong> to add this brand to your skills library.` : 'Brand details captured from the document.'}
+    </div>
+  `;
+
+  // Re-show the save button and store extracted data on it
+  const btn = document.getElementById('brand-save-btn');
+  btn.style.display = '';
+  btn.textContent = 'Done';
+  btn._extracted = extracted;
+}
+
+function saveBrand(){
+  const name = document.getElementById('nb-name').value.trim();
+  if(!name){ alert('Please enter a brand name.'); return; }
+
+  if(currentFlow==='manual'){
+    // In production: send manual fields to Claude, compile skill
+    alert(`Brand "${name}" saved. Claude will compile the skill file from your inputs and add it to the library.`);
+  } else {
+    // Auto flow — extracted already done
+    alert(`Brand "${name}" added with auto-extracted details. The skill file is now compiled and active.`);
+  }
+  closeAddBrandModal();
 }
 
 function dl(ms){return new Promise(r=>setTimeout(r,ms));}

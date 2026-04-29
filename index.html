@@ -1605,8 +1605,20 @@ function syncMode(t){
   document.querySelectorAll('.cmode').forEach(m=>m.classList.toggle('on',m.textContent===(map[t]||t)));
 }
 function getPH(m){
-  const map={'Campaign Concept':'e.g. Give me 5 campaign concepts for MTN MoMo targeting urban youth in Kampala','Ad Copywriting':'e.g. Write 3 Instagram captions for DStv's UCL Final — bold, sports-fan energy','Ad Copy':'e.g. Write 3 Instagram captions for DStv's UCL Final — bold, sports-fan energy','Script Writing':'e.g. Write a 30-second radio script for Absa Uganda's Easter savings offer','Script':'e.g. Write a 30-second radio script for Absa Uganda's Easter savings offer','Tagline Generator':'e.g. Generate 10 taglines for MTN's new unlimited data bundle launch','Taglines':'e.g. Generate 10 taglines for MTN's new unlimited data bundle launch','Brand Voice Check':'e.g. Paste your copy here and I'll check it against brand guidelines','Audience Insight':'e.g. What motivates mobile money users in Kampala aged 18–28?','Competitor Analysis':'e.g. Compare MTN and Airtel Uganda's recent campaign strategies','Free Chat':'Ask anything about strategy, copy, campaigns or creative direction…'};
-  return map[m]||'Ask anything…';
+  const map = {
+    "Campaign Concept":     "e.g. Give me 5 campaign concepts for MTN MoMo targeting urban youth in Kampala",
+    "Ad Copywriting":       "e.g. Write 3 Instagram captions for DStv\u2019s UCL Final \u2014 bold, sports-fan energy",
+    "Ad Copy":              "e.g. Write 3 Instagram captions for DStv\u2019s UCL Final \u2014 bold, sports-fan energy",
+    "Script Writing":       "e.g. Write a 30-second radio script for Absa Uganda\u2019s Easter savings offer",
+    "Script":               "e.g. Write a 30-second radio script for Absa Uganda\u2019s Easter savings offer",
+    "Tagline Generator":    "e.g. Generate 10 taglines for MTN\u2019s new unlimited data bundle launch",
+    "Taglines":             "e.g. Generate 10 taglines for MTN\u2019s new unlimited data bundle launch",
+    "Brand Voice Check":    "e.g. Paste your copy here and I will check it against brand guidelines",
+    "Audience Insight":     "e.g. What motivates mobile money users in Kampala aged 18\u201328?",
+    "Competitor Analysis":  "e.g. Compare MTN and Airtel Uganda recent campaign strategies",
+    "Free Chat":            "Ask anything about strategy, copy, campaigns or creative direction\u2026"
+  };
+  return map[m] || "Ask anything\u2026";
 }
 
 function ckd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
@@ -1694,14 +1706,16 @@ function addMsg(role,txt){
 }
 
 function fmt(t){
+  const FH1 = `<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:16px;font-weight:800;color:var(--hd);margin:12px 0 5px;letter-spacing:-.2px">$1</div>`;
+  const FH2 = `<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:13px;font-weight:700;color:var(--hd);margin:9px 0 3px">$1</div>`;
   return t
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/^# (.+)$/gm,'<div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--hd);margin:12px 0 5px;letter-spacing:-.2px">$1</div>')
-    .replace(/^## (.+)$/gm,'<div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--hd);margin:9px 0 3px">$1</div>')
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+    .replace(/^# (.+)$/gm, FH1)
+    .replace(/^## (.+)$/gm, FH2)
     .replace(/^(\d+)\. /gm,'<br><strong style="color:var(--tea)">$1.</strong> ')
-    .replace(/^— /gm,'<br>— ')
-    .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+    .replace(/^\u2014 /gm,"<br>\u2014 ")
+    .replace(/\n\n/g,"<br><br>").replace(/\n/g,"<br>");
 }
 
 function addSaved(type,preview){

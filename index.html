@@ -359,39 +359,72 @@ body{
 .proc-btn:hover{background:#1c1c14;transform:translateY(-1px);box-shadow:var(--sh2);}
 
 /* Pipeline */
+/* ── PIPELINE (modern, minimal) ── */
 .pip-card{
-  background:var(--sur);border:1.5px solid var(--ln);
+  background:var(--sur);border:1px solid var(--ln);
   border-radius:var(--r2);overflow:hidden;margin-top:14px;display:none;
+  box-shadow:var(--sh);
 }
 .pip-hd{
-  padding:15px 20px;border-bottom:1.5px solid var(--ln);
-  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;border-bottom:1px solid var(--ln);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
+.pip-hd-l{display:flex;align-items:center;gap:10px;}
 .pip-hd-t{
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:14px;font-weight:700;color:var(--hd);
+  font-size:14px;font-weight:700;color:var(--hd);letter-spacing:-.2px;
 }
 .pip-hd-f{font-size:12px;color:var(--mu);font-family:'DM Mono',monospace;}
+.pip-progress-track{
+  height:2px;background:var(--ln);position:relative;overflow:hidden;
+}
+.pip-progress-bar{
+  position:absolute;top:0;left:0;height:100%;width:0;
+  background:linear-gradient(90deg,var(--hd) 0%,var(--hd) 100%);
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.pip-progress-bar::after{
+  content:"";position:absolute;top:0;right:0;width:80px;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.7));
+  animation:pipShimmer 1.4s linear infinite;
+}
+@keyframes pipShimmer{0%{transform:translateX(-100%);}100%{transform:translateX(0);}}
+.pip-rows{padding:6px 0;}
 .pip-row{
-  display:flex;align-items:center;gap:13px;
-  padding:12px 20px;border-bottom:1px solid var(--ln);
-  transition:background .18s;
+  display:flex;align-items:center;gap:14px;
+  padding:11px 22px;
+  transition:opacity .25s,background .2s;
+  opacity:.5;
 }
-.pip-row:last-child{border-bottom:none;}
-.pip-row.act{background:rgba(255,203,5,.04);}
+.pip-row.act{opacity:1;background:transparent;}
+.pip-row.complete{opacity:1;}
 .pip-n{
-  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
-  border:1.5px solid var(--ln2);background:var(--bg);color:var(--mu);
-  transition:all .25s;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  border:1.5px solid var(--ln2);background:var(--sur);color:var(--mu);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;
 }
-.pip-n.run{border-color:var(--yel);background:var(--yellt);color:var(--yeldk);}
-.pip-n.done{border-color:var(--grn);background:var(--grnlt);color:var(--grn);}
-.pip-b{flex:1;}
-.pip-lbl{font-size:13px;font-weight:600;color:var(--tx);}
+.pip-n.run{
+  border-color:var(--hd);background:var(--hd);color:#fff;
+}
+.pip-n.run::before{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1.5px solid var(--hd);opacity:.2;
+  animation:pipPulse 1.3s ease-out infinite;
+}
+@keyframes pipPulse{
+  0%{transform:scale(1);opacity:.4;}
+  100%{transform:scale(1.7);opacity:0;}
+}
+.pip-n.done{
+  border-color:var(--hd);background:var(--hd);color:#fff;
+}
+.pip-b{flex:1;min-width:0;}
+.pip-lbl{font-size:13px;font-weight:600;color:var(--tx);letter-spacing:-.1px;}
 .pip-desc{font-size:12px;color:var(--mu);margin-top:1px;}
-.pip-t{font-size:11px;color:var(--mu);font-family:'DM Mono',monospace;margin-left:auto;}
+.pip-t{font-size:11px;color:var(--mu);font-family:'DM Mono',monospace;margin-left:auto;flex-shrink:0;}
 
 /* Results */
 .res-sec{display:none;}
@@ -678,6 +711,192 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
   .tn-btn span:last-child{display:none;}
   .stats-row{grid-template-columns:1fr 1fr;}
 }
+
+
+/* ── COPY OPTIONS (no image background) ── */
+.copy-options-wrap{display:flex;flex-direction:column;gap:10px;}
+.copy-opt{
+  background:var(--bg2);border:1.5px solid var(--ln);
+  border-radius:var(--r);padding:18px 20px;
+  cursor:pointer;transition:all .15s;position:relative;
+}
+.copy-opt:hover{border-color:var(--ln2);background:var(--sur);}
+.copy-opt.on{border-color:var(--hd);background:var(--sur);box-shadow:var(--sh);}
+.copy-opt-tag{
+  position:absolute;top:14px;right:16px;
+  font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--mu);background:var(--sur);padding:3px 8px;border-radius:4px;
+  border:1px solid var(--ln);
+}
+.copy-opt.on .copy-opt-tag{color:var(--hd);border-color:var(--hd);}
+.copy-opt-hl{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:-.3px;
+  color:var(--hd);margin-bottom:6px;line-height:1.2;
+  padding-right:80px;
+}
+.copy-opt-bd{font-size:13px;color:var(--tx);line-height:1.55;margin-bottom:10px;}
+.copy-opt-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;background:var(--hd);color:#fff;
+  border-radius:6px;font-size:12px;font-weight:700;
+}
+
+/* ── IMAGE GALLERY (Brief Studio image selection) ── */
+.img-gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:10px;
+}
+.img-pick{
+  background:var(--bg2);border:2px solid var(--ln);border-radius:var(--r);
+  overflow:hidden;cursor:pointer;transition:all .15s;
+  position:relative;aspect-ratio:1;
+}
+.img-pick:hover{border-color:var(--ln2);}
+.img-pick.on{
+  border-color:var(--hd);
+  transform:scale(.97);
+}
+.img-pick.on::after{
+  content:"";position:absolute;inset:0;
+  background:rgba(13,13,8,.08);
+  pointer-events:none;
+}
+.img-pick-check{
+  position:absolute;top:10px;right:10px;
+  width:22px;height:22px;border-radius:50%;
+  background:#fff;border:1.5px solid var(--ln2);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;z-index:2;
+}
+.img-pick.on .img-pick-check{
+  background:var(--hd);border-color:var(--hd);
+}
+.img-pick.on .img-pick-check::after{
+  content:"✓";color:#fff;font-size:11px;font-weight:700;
+}
+.img-pick img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+.img-pick-shim{
+  width:100%;height:100%;
+  background:linear-gradient(90deg,var(--bg2) 0%,var(--bg3) 50%,var(--bg2) 100%);
+  background-size:200% 100%;animation:shim 1.3s infinite;
+  display:flex;align-items:center;justify-content:center;
+}
+.img-pick-shim-lbl{
+  font-size:10px;color:var(--mu);font-family:'DM Mono',monospace;
+}
+.img-pick-fallback{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:42px;opacity:.5;
+}
+.assemble-row{
+  display:flex;gap:10px;align-items:center;justify-content:space-between;
+  padding:14px 16px;background:var(--bg2);
+  border:1px solid var(--ln);border-radius:var(--r);margin-top:14px;
+}
+.assemble-status{font-size:13px;color:var(--so);}
+.assemble-status strong{color:var(--hd);}
+
+/* ── BRAND SKILLS (Admin) ── */
+.skills-toolbar{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:18px;flex-wrap:wrap;gap:10px;
+}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.skill-card{
+  background:var(--sur);border:1.5px solid var(--ln);
+  border-radius:var(--r2);padding:18px;
+  cursor:pointer;transition:all .15s;
+}
+.skill-card:hover{border-color:var(--hd);box-shadow:var(--sh);}
+.skill-card-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.skill-card-icon{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.skill-card-info{flex:1;min-width:0;}
+.skill-card-name{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:700;color:var(--hd);
+  margin-bottom:2px;
+}
+.skill-card-desc{font-size:12px;color:var(--mu);}
+.skill-card-stats{
+  display:flex;gap:14px;font-size:12px;color:var(--so);
+  padding-top:14px;border-top:1px solid var(--ln);
+}
+.skill-stat{display:flex;flex-direction:column;gap:2px;}
+.skill-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--hd);font-size:14px;}
+.skill-stat-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;}
+.skill-empty-add{
+  background:transparent;border:2px dashed var(--ln2);border-radius:var(--r2);
+  padding:18px;cursor:pointer;transition:all .15s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;min-height:180px;
+}
+.skill-empty-add:hover{border-color:var(--hd);background:var(--bg2);}
+.skill-empty-icon{
+  width:40px;height:40px;border-radius:50%;background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--so);
+}
+.skill-empty-text{font-size:13px;font-weight:600;color:var(--so);}
+
+/* Skill detail / editor modal-ish */
+.skill-detail{
+  background:var(--sur);border:1.5px solid var(--ln);
+  border-radius:var(--r2);overflow:hidden;display:none;
+}
+.skill-detail.on{display:block;}
+.skill-detail-head{
+  padding:18px 22px;border-bottom:1px solid var(--ln);
+  display:flex;align-items:center;gap:14px;
+}
+.skill-detail-head .skill-card-icon{width:48px;height:48px;font-size:22px;}
+.skill-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--ln);
+  padding:0 22px;
+}
+.skill-tab{
+  padding:13px 16px;background:transparent;border:none;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--mu);cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .15s;margin-bottom:-1px;
+}
+.skill-tab:hover{color:var(--so);}
+.skill-tab.on{color:var(--hd);border-bottom-color:var(--hd);}
+.skill-tab-content{padding:22px;display:none;}
+.skill-tab-content.on{display:block;}
+.field-block{margin-bottom:16px;}
+.field-block label{
+  display:block;font-size:11px;font-weight:700;letter-spacing:.5px;
+  color:var(--so);margin-bottom:6px;text-transform:uppercase;
+}
+.field-block textarea,.field-block input{
+  width:100%;background:var(--bg);border:1.5px solid var(--ln2);
+  border-radius:var(--r);padding:11px 13px;color:var(--tx);
+  font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.55;
+  outline:none;transition:border-color .18s;resize:vertical;
+}
+.field-block textarea{min-height:80px;}
+.field-block textarea:focus,.field-block input:focus{border-color:var(--hd);}
+.skill-actions{
+  padding:14px 22px;border-top:1px solid var(--ln);background:var(--bg2);
+  display:flex;justify-content:space-between;gap:10px;
+}
+.compile-status{
+  font-size:12px;color:var(--mu);display:flex;align-items:center;gap:6px;
+}
+.compile-status.ok{color:var(--grn);}
+
+@media(max-width:768px){
+  .skills-grid{grid-template-columns:1fr;}
+  .img-gallery-grid{grid-template-columns:1fr 1fr;}
+}
+
 </style>
 </head>
 <body>
@@ -895,10 +1114,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
             <!-- PIPELINE -->
             <div class="pip-card" id="pip-card">
               <div class="pip-hd">
-                <div class="pip-hd-t">Processing Pipeline</div>
+                <div class="pip-hd-l">
+                  <div class="pip-hd-t">Processing</div>
+                </div>
                 <div class="pip-hd-f" id="pip-fname">brief.pdf</div>
               </div>
-              <div id="pip-rows"></div>
+              <div class="pip-progress-track">
+                <div class="pip-progress-bar" id="pip-progress-bar"></div>
+              </div>
+              <div class="pip-rows" id="pip-rows"></div>
             </div>
 
             <!-- RESULTS -->
@@ -915,12 +1139,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                 </div>
               </div>
               <div class="res-card">
-                <div class="rc-h"><div class="rc-ht">Generated Copy</div><span class="chip g">Brand-compliant</span></div>
+                <div class="rc-h">
+                  <div class="rc-ht">Copy Options</div>
+                  <span class="chip g">Brand-compliant</span>
+                </div>
                 <div class="rc-bd">
-                  <div class="copy-bx">
-                    <div class="copy-hl">Send Money. Save Time. Live More.</div>
-                    <div class="copy-bd">With MTN MoMo, managing your money is as easy as a tap. Send to family, pay bills, buy data — all from your phone. No queues. No stress.</div>
-                    <div class="copy-cta">Activate MoMo Free →</div>
+                  <div style="font-size:12px;color:var(--mu);margin-bottom:12px">Select the variant that best fits your campaign direction</div>
+                  <div class="copy-options-wrap" id="copy-options"></div>
+                </div>
+              </div>
+
+              <div class="res-card">
+                <div class="rc-h">
+                  <div class="rc-ht">Generated Visuals</div>
+                  <span class="chip t" id="img-pick-status">Choose 1 to assemble</span>
+                </div>
+                <div class="rc-bd">
+                  <div style="font-size:12px;color:var(--mu);margin-bottom:12px">Select your preferred image — only the chosen visual is sent to the Figma assembly stage</div>
+                  <div class="img-gallery-grid" id="img-gallery"></div>
+                  <div class="assemble-row">
+                    <div class="assemble-status">
+                      Selected: <strong id="assemble-sel-status">No image chosen yet</strong>
+                    </div>
+                    <button class="btn prim" id="assemble-btn" onclick="assembleSelection()" disabled style="opacity:.5;cursor:not-allowed">Assemble in Figma →</button>
                   </div>
                 </div>
               </div>
@@ -1058,6 +1299,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
           <button class="adm-nav on" onclick="admNav('overview',this)"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="7.5" y="1" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1" y="7.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>Overview</button>
           <button class="adm-nav" onclick="admNav('users',this)"><svg viewBox="0 0 14 14" fill="none"><circle cx="4.5" cy="4" r="2.2" stroke="currentColor" stroke-width="1.3"/><circle cx="10" cy="4" r="1.8" stroke="currentColor" stroke-width="1.2"/><path d="M1 12c0-1.9 1.6-3.5 3.5-3.5S8 10.1 8 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M11.5 12c0-1.2-.8-2.2-1.8-2.7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Users</button>
           <button class="adm-nav" onclick="admNav('limits',this)"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Model Limits</button>
+          <button class="adm-nav" onclick="admNav('skills',this)"><svg viewBox="0 0 14 14" fill="none"><path d="M2 4l5 3 5-3M2 4v6l5 3 5-3V4M2 4l5-3 5 3" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Brand Skills</button>
           <button class="adm-nav" onclick="admNav('work',this)"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6h5M4.5 8.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>All Work</button>
           <button class="adm-nav" onclick="admNav('settings',this)"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M7 1v2M7 11v2M1 7h2M11 7h2M2.9 2.9l1.4 1.4M9.7 9.7l1.4 1.4M2.9 11.1l1.4-1.4M9.7 4.3l1.4-1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Settings</button>
         </aside>
@@ -1196,6 +1438,195 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
                   </select>
                 </div>
                 <button class="btn yel" style="width:100%;margin-top:18px;padding:11px" onclick="alert('Limits saved successfully')">Save Limits</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BRAND SKILLS -->
+          <div class="adm-pg" id="adm-skills">
+            <div class="pg-h">Brand Skills</div>
+            <div class="pg-s">Compile structured brand knowledge files used by Claude when generating copy and visuals for each client</div>
+
+            <div class="skills-toolbar">
+              <div style="font-size:13px;color:var(--mu)">
+                <strong style="color:var(--hd)" id="skills-count">3</strong> brand skills active &middot;
+                <strong style="color:var(--hd)" id="skills-compiled">2</strong> compiled
+              </div>
+              <button class="btn prim" onclick="addNewBrand()">+ Add Brand</button>
+            </div>
+
+            <div class="skills-grid" id="skills-grid">
+              <!-- MTN -->
+              <div class="skill-card" onclick="openSkill('mtn')">
+                <div class="skill-card-head">
+                  <div class="skill-card-icon" style="background:#FFCB05;color:#0d0d08">M</div>
+                  <div class="skill-card-info">
+                    <div class="skill-card-name">MTN Uganda</div>
+                    <div class="skill-card-desc">Telecom &middot; Yellow + Black &middot; Bold tone</div>
+                  </div>
+                  <span class="chip g">Compiled</span>
+                </div>
+                <div class="skill-card-stats">
+                  <div class="skill-stat"><div class="skill-stat-val">v2.1</div><div class="skill-stat-lbl">Version</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">12</div><div class="skill-stat-lbl">Rules</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">47</div><div class="skill-stat-lbl">Used</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">2d</div><div class="skill-stat-lbl">Updated</div></div>
+                </div>
+              </div>
+
+              <!-- Absa -->
+              <div class="skill-card" onclick="openSkill('absa')">
+                <div class="skill-card-head">
+                  <div class="skill-card-icon" style="background:#DC1E28;color:#fff">A</div>
+                  <div class="skill-card-info">
+                    <div class="skill-card-name">Absa Uganda</div>
+                    <div class="skill-card-desc">Banking &middot; Red + Charcoal &middot; Trusted tone</div>
+                  </div>
+                  <span class="chip g">Compiled</span>
+                </div>
+                <div class="skill-card-stats">
+                  <div class="skill-stat"><div class="skill-stat-val">v1.8</div><div class="skill-stat-lbl">Version</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">14</div><div class="skill-stat-lbl">Rules</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">23</div><div class="skill-stat-lbl">Used</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">5d</div><div class="skill-stat-lbl">Updated</div></div>
+                </div>
+              </div>
+
+              <!-- DStv -->
+              <div class="skill-card" onclick="openSkill('dstv')">
+                <div class="skill-card-head">
+                  <div class="skill-card-icon" style="background:#0064B4;color:#fff">D</div>
+                  <div class="skill-card-info">
+                    <div class="skill-card-name">DStv Uganda</div>
+                    <div class="skill-card-desc">Pay-TV &middot; Blue + Charcoal &middot; Energetic tone</div>
+                  </div>
+                  <span class="chip y">Draft</span>
+                </div>
+                <div class="skill-card-stats">
+                  <div class="skill-stat"><div class="skill-stat-val">v0.9</div><div class="skill-stat-lbl">Version</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">8</div><div class="skill-stat-lbl">Rules</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">11</div><div class="skill-stat-lbl">Used</div></div>
+                  <div class="skill-stat"><div class="skill-stat-val">1w</div><div class="skill-stat-lbl">Updated</div></div>
+                </div>
+              </div>
+
+              <!-- Add new -->
+              <div class="skill-empty-add" onclick="addNewBrand()">
+                <div class="skill-empty-icon">+</div>
+                <div class="skill-empty-text">Add a New Brand</div>
+                <div style="font-size:11px;color:var(--mu);text-align:center;max-width:180px">Upload a brand guide PDF or build the skill manually</div>
+              </div>
+            </div>
+
+            <!-- Brand skill editor (slides in below grid when a brand is opened) -->
+            <div class="skill-detail" id="skill-detail" style="margin-top:18px">
+              <div class="skill-detail-head">
+                <div class="skill-card-icon" id="skill-detail-icon" style="background:#FFCB05;color:#0d0d08">M</div>
+                <div class="skill-card-info">
+                  <div class="skill-card-name" id="skill-detail-name">MTN Uganda</div>
+                  <div class="skill-card-desc" id="skill-detail-desc">Telecom &middot; v2.1 &middot; Last compiled 2 days ago</div>
+                </div>
+                <button class="btn" onclick="closeSkill()">Close</button>
+              </div>
+              <div class="skill-tabs">
+                <button class="skill-tab on" onclick="skillTab('voice',this)">Voice &amp; Tone</button>
+                <button class="skill-tab" onclick="skillTab('visual',this)">Visual Identity</button>
+                <button class="skill-tab" onclick="skillTab('rules',this)">Rules &amp; Dos/Don'ts</button>
+                <button class="skill-tab" onclick="skillTab('compiled',this)">Compiled Skill</button>
+              </div>
+
+              <div class="skill-tab-content on" id="skill-tab-voice">
+                <div class="field-block">
+                  <label>Brand Personality</label>
+                  <textarea id="sk-personality">Bold, confident and uplifting. MTN speaks like a friend who believes in your potential — direct, warm, and culturally tuned in.</textarea>
+                </div>
+                <div class="field-block">
+                  <label>Audience</label>
+                  <input id="sk-audience" value="Ugandans 18&ndash;45, urban-leaning, smartphone-first, value-conscious">
+                </div>
+                <div class="field-block">
+                  <label>Tagline</label>
+                  <input id="sk-tagline" value="Y&apos;ello, your future is calling.">
+                </div>
+                <div class="field-block">
+                  <label>Example Headlines</label>
+                  <textarea id="sk-examples">Send Money. Save Time. Live More.
+Everything you need, in your pocket.
+The smartest move you&apos;ll make today.</textarea>
+                </div>
+              </div>
+
+              <div class="skill-tab-content" id="skill-tab-visual">
+                <div class="field-block">
+                  <label>Primary Colours</label>
+                  <input id="sk-colors" value="#FFCB05 (yellow), #0d0d08 (black), #ffffff (white)">
+                </div>
+                <div class="field-block">
+                  <label>Typography</label>
+                  <input id="sk-fonts" value="Heading: Poppins Bold &middot; Body: Inter Regular">
+                </div>
+                <div class="field-block">
+                  <label>Visual Style Notes</label>
+                  <textarea id="sk-visual-notes">High-contrast yellow on black. Real Ugandan faces and locations. Dynamic angles. Avoid abstract or generic stock-style imagery.</textarea>
+                </div>
+              </div>
+
+              <div class="skill-tab-content" id="skill-tab-rules">
+                <div class="field-block">
+                  <label>Always Do</label>
+                  <textarea id="sk-do">- Lead with benefit, not feature
+- Use action verbs in headlines
+- Keep CTAs short (2-4 words)
+- Include local cultural cues where authentic
+- Yellow always reads on dark background</textarea>
+                </div>
+                <div class="field-block">
+                  <label>Never Do</label>
+                  <textarea id="sk-dont">- No passive voice
+- No generic global stock photography
+- Never use yellow on white (low contrast)
+- Avoid jargon &mdash; speak human
+- No fear-based or scarcity tactics</textarea>
+                </div>
+                <div class="field-block">
+                  <label>Differentiation vs Competitors</label>
+                  <textarea id="sk-diff">vs Airtel: We are the established, trusted choice with the deepest network.
+vs Lyca: We are the brand that grew with Uganda &mdash; not the cheap alternative.</textarea>
+                </div>
+              </div>
+
+              <div class="skill-tab-content" id="skill-tab-compiled">
+                <div style="font-size:12px;color:var(--mu);margin-bottom:10px">This is the compiled skill file injected into Claude as a system prompt for every MTN Uganda brief or copy request. It updates automatically when you save changes.</div>
+                <pre id="sk-compiled" style="background:var(--bg2);border:1px solid var(--ln);border-radius:var(--r);padding:14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);line-height:1.6;white-space:pre-wrap;max-height:340px;overflow:auto"># MTN Uganda Brand Skill v2.1
+
+## Voice
+Bold, confident and uplifting. MTN speaks like a friend who believes in your potential.
+Audience: Ugandans 18-45, urban-leaning, smartphone-first.
+Tagline: Y'ello, your future is calling.
+
+## Visual Identity
+Colours: #FFCB05 (primary), #0d0d08 (black), #ffffff (white)
+Type: Poppins Bold (heading), Inter Regular (body)
+Style: High-contrast yellow on black. Real Ugandan faces. Dynamic angles.
+
+## Rules
+DO: benefit-led headlines, action verbs, short CTAs, local cues
+DO NOT: passive voice, generic stock, yellow on white, fear tactics, jargon
+
+## Differentiation
+vs Airtel: established, trusted, deepest network
+vs Lyca: grew with Uganda, not the cheap alternative
+
+## Apply this when
+Generating any copy, headline, body text, CTA, or visual brief for MTN Uganda.</pre>
+              </div>
+
+              <div class="skill-actions">
+                <div class="compile-status ok" id="compile-status"><span>&#10003;</span> Compiled and active</div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn" onclick="saveSkillDraft()">Save as Draft</button>
+                  <button class="btn yel" onclick="compileSkill()">Re-compile</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1344,111 +1775,139 @@ async function startPip(){
   const p=document.getElementById('oo-panel');const file=p._f||{name:'brief.pdf'};
   p.style.display='none';document.getElementById('res-sec').style.display='none';
   const pc=document.getElementById('pip-card');pc.style.display='block';
+
+  // Build progress bar + rows
   buildRows();
+  updateProgressBar(0);
   const t0=Date.now();
 
-  // Steps 1-3: simulate fast (parsing + skill load)
+  // Steps 1-3: simulate fast (parsing, brief read, brand skill load)
   for(let i=0;i<3;i++){
-    await runPipStep(i,t0,null,null);
+    await runPipStep(i,t0);
+    updateProgressBar(((i+1)/PSTEPS.length)*100);
   }
 
-  // Step 4: REAL Claude call for copy generation
-  let claudeResult = null;
+  // Step 4: REAL Claude call — generate THREE copy variants
+  let claudeOptions = null;
   try {
-    const n=document.getElementById('pn3'),d=document.getElementById('pd3'),tm=document.getElementById('pt3');
-    document.getElementById('pr3').classList.add('act');
-    n.className='pip-n run';n.innerHTML='<span class="spin">↻</span>';
-    d.textContent='Claude writing headlines, copy & CTAs…';
+    activatePipStep(3);
+    document.getElementById('pd3').textContent='Claude writing 3 copy variants...';
 
     const brandSel = document.querySelector('.bsel')?.value || 'Auto-detect';
     const briefContext = briefFileContent
-      ? `Brief document content:
-${briefFileContent}`
+      ? `Brief document content:\n${briefFileContent}`
       : `Client brief for: ${file.name}`;
 
-    const systemPrompt = `You are a senior advertising copywriter at a top African agency. You write punchy, culturally relevant ad copy for Ugandan and East African brands. Always respond with structured JSON only.`;
-    const userPrompt = `${briefContext}
-
-Brand: ${brandSel}
-Aspect ratio: ${selRatioLbl}
-
-Write ad copy and return ONLY valid JSON with this structure:
-{"client":"brand name","campaign_type":"type","objective":"one sentence","headline":"punchy headline under 8 words","body":"2-3 sentence body copy","cta":"call to action","tagline":"optional tagline"}`;
+    const systemPrompt = `You are a senior advertising copywriter at a top East African agency. You write punchy, culturally relevant ad copy for Ugandan brands. Always respond with ONLY valid JSON, no markdown fences.`;
+    const userPrompt = `${briefContext}\n\nBrand: ${brandSel}\nAspect ratio: ${selRatioLbl}\n\nWrite THREE distinct ad copy variants. Return ONLY valid JSON in this exact shape:\n{"client":"brand name","campaign_type":"type","objective":"one sentence","options":[{"label":"Bold","headline":"...","body":"...","cta":"..."},{"label":"Emotional","headline":"...","body":"...","cta":"..."},{"label":"Witty","headline":"...","body":"...","cta":"..."}]}\n\nKeep each headline under 8 words, body 2 sentences, CTA 2-4 words.`;
 
     if(AI_MODE==='puter'){
       const resp = await puter.ai.chat(userPrompt, {model:'claude-sonnet-4-6', systemPrompt});
       const raw = typeof resp==='string'?resp:(resp?.message?.content?.[0]?.text||resp?.content?.[0]?.text||JSON.stringify(resp));
-      try{claudeResult=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch{claudeResult=null;}
+      try{claudeOptions=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){claudeOptions=null;}
     } else {
-      // API mode — call Anthropic directly
       const r = await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':API_KEYS.anthropic,'anthropic-version':'2023-06-01'},
-        body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:systemPrompt,messages:[{role:'user',content:userPrompt}]})
+        body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:systemPrompt,messages:[{role:'user',content:userPrompt}]})
       });
       const data=await r.json();
       const raw=data?.content?.[0]?.text||'';
-      try{claudeResult=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch{claudeResult=null;}
+      try{claudeOptions=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){claudeOptions=null;}
     }
 
-    n.className='pip-n done';n.textContent='✓';
-    d.textContent=claudeResult?'Copy generated ✓':'3 copy variants generated ✓';
-    tm.textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
-    document.getElementById('pr3').classList.remove('act');
+    completePipStep(3);
+    document.getElementById('pd3').textContent = claudeOptions ? '3 copy variants generated' : 'Copy generated';
+    document.getElementById('pt3').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
+    updateProgressBar((4/PSTEPS.length)*100);
   } catch(err){
-    console.warn('Claude call failed, using demo copy',err);
-    const n=document.getElementById('pn3');
-    n.className='pip-n done';n.textContent='✓';
-    document.getElementById('pd3').textContent='Copy generated ✓';
+    console.warn('Claude call failed',err);
+    completePipStep(3);
+    document.getElementById('pd3').textContent='Copy generated (fallback)';
     document.getElementById('pt3').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
   }
 
-  // Step 5: REAL Image generation
-  let generatedImgEl = null;
+  // Step 5: REAL Image generation — generate THREE images
+  const generatedImages = [];
   try {
-    const n=document.getElementById('pn4'),d=document.getElementById('pd4'),tm=document.getElementById('pt4');
-    document.getElementById('pr4').classList.add('act');
-    n.className='pip-n run';n.innerHTML='<span class="spin">↻</span>';
-    d.textContent='Generating campaign visual…';
+    activatePipStep(4);
+    document.getElementById('pd4').textContent='Generating 3 visual options...';
 
-    const headline = claudeResult?.headline || 'Send Money. Save Time. Live More.';
-    const client   = claudeResult?.client   || 'MTN Uganda';
-    const imgPrompt= `Professional advertising campaign visual for ${client}. ${headline}. Ugandan setting, vibrant colours, photorealistic, marketing quality, clean composition, no text overlays.`;
+    const headline = claudeOptions?.options?.[0]?.headline || 'Send Money. Save Time. Live More.';
+    const client   = claudeOptions?.client   || 'MTN Uganda';
+    const baseImgPrompt = `Professional advertising campaign visual for ${client}. ${headline}. Ugandan setting, vibrant colours, photorealistic, marketing quality, clean composition, no text overlays.`;
+
+    // Three different prompt angles for variety
+    const promptVariants = [
+      baseImgPrompt + ' Wide shot, environmental context, lifestyle.',
+      baseImgPrompt + ' Close-up, emotional, human-centred portrait.',
+      baseImgPrompt + ' Bold graphic, clean background, product-focused.'
+    ];
 
     if(AI_MODE==='puter'){
-      generatedImgEl = await puter.ai.txt2img(imgPrompt,{model:'black-forest-labs/flux-schnell'});
+      const promises = promptVariants.map(pr =>
+        puter.ai.txt2img(pr,{model:'black-forest-labs/flux-schnell'})
+          .catch(e=>{console.warn('image fail',e);return null;})
+      );
+      const results = await Promise.all(promises);
+      results.forEach(r=>{if(r)generatedImages.push(r);});
     }
 
-    n.className='pip-n done';n.textContent='✓';
-    d.textContent='Visual asset created ✓';
-    tm.textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
-    document.getElementById('pr4').classList.remove('act');
+    completePipStep(4);
+    document.getElementById('pd4').textContent= generatedImages.length>0
+      ? `${generatedImages.length} visual options created`
+      : 'Visual assets created';
+    document.getElementById('pt4').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
+    updateProgressBar((5/PSTEPS.length)*100);
   } catch(err){
     console.warn('Image gen failed',err);
-    const n=document.getElementById('pn4');
-    n.className='pip-n done';n.textContent='✓';
-    document.getElementById('pd4').textContent='Visual created ✓';
+    completePipStep(4);
+    document.getElementById('pd4').textContent='Visuals created (fallback)';
     document.getElementById('pt4').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
   }
 
   // Steps 6-7: simulate assembly + export
   for(let i=5;i<7;i++){
-    await runPipStep(i,t0,null,null);
+    await runPipStep(i,t0);
+    updateProgressBar(((i+1)/PSTEPS.length)*100);
   }
 
+  // Smooth fade out then results
+  await dl(400);
   pc.style.display='none';
-  showRes(file.name, claudeResult, generatedImgEl);
+  showRes(file.name, claudeOptions, generatedImages);
 }
 
-async function runPipStep(i,t0,result,imgEl){
+function activatePipStep(i){
+  const row=document.getElementById('pr'+i);
+  const num=document.getElementById('pn'+i);
+  if(!row)return;
+  row.classList.add('act');
+  num.className='pip-n run';
+  num.textContent='';
+}
+function completePipStep(i){
+  const row=document.getElementById('pr'+i);
+  const num=document.getElementById('pn'+i);
+  if(!row)return;
+  row.classList.remove('act');
+  row.classList.add('complete');
+  num.className='pip-n done';
+  num.innerHTML='<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function updateProgressBar(pct){
+  const bar=document.getElementById('pip-progress-bar');
+  if(bar)bar.style.width=pct+'%';
+}
+
+async function runPipStep(i,t0){
   const s=PSTEPS[i];
-  const n=document.getElementById('pn'+i),d=document.getElementById('pd'+i),tm=document.getElementById('pt'+i);
-  document.getElementById('pr'+i).classList.add('act');
-  n.className='pip-n run';n.innerHTML='<span class="spin">↻</span>';
+  activatePipStep(i);
+  document.getElementById('pd'+i).textContent=s.d;
   await dl(s.ms);
-  n.className='pip-n done';n.textContent='✓';d.textContent=s.ok;
-  tm.textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
-  document.getElementById('pr'+i).classList.remove('act');
+  completePipStep(i);
+  document.getElementById('pd'+i).textContent=s.ok;
+  document.getElementById('pt'+i).textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
 }
 
 function buildRows(){
@@ -1460,40 +1919,127 @@ function buildRows(){
   });
 }
 
-function showRes(fname, claudeData, imgEl){
-  const base=fname.replace(/\.(pdf|doc|docx)$/i,'');
-  document.getElementById('r-del').textContent=`${selQty} × ${selRatioLbl} ${selFmt.toUpperCase()}`;
+// Selected copy + image state
+let selectedCopyIdx = 0;
+let selectedImgIdx  = -1;
+let lastClaudeOptions = null;
+let lastGeneratedImages = [];
 
-  // Populate Claude-generated copy if available
+function showRes(fname, claudeData, imgList){
+  const base=fname.replace(/\.(pdf|doc|docx)$/i,'');
+  const qty = selQty;
+  const lbl = selRatioLbl;
+  const fmtTxt = selFmt.toUpperCase();
+  document.getElementById('r-del').textContent=`${qty} \u00d7 ${lbl} ${fmtTxt}`;
+
   if(claudeData){
     document.getElementById('r-client').textContent=claudeData.client||'MTN Uganda';
-    const hl=document.querySelector('.copy-hl');
-    const bd=document.querySelector('.copy-bd');
-    const cta=document.querySelector('.copy-cta');
-    if(hl)hl.textContent=claudeData.headline||'Send Money. Save Time. Live More.';
-    if(bd)bd.textContent=claudeData.body||'With MTN MoMo, managing your money is as easy as a tap.';
-    if(cta)cta.textContent=(claudeData.cta||'Activate Now')+' →';
   }
 
-  // Show real generated image if available
-  if(imgEl){
-    const imgWrap=document.createElement('div');
-    imgWrap.style.cssText='border-radius:var(--r);overflow:hidden;margin-bottom:6px;max-height:280px;display:flex;align-items:center;justify-content:center;background:var(--bg2);';
-    imgEl.style.cssText='width:100%;height:100%;object-fit:cover;max-height:280px;';
-    imgWrap.appendChild(imgEl);
-    const copyBx=document.querySelector('.copy-bx');
-    if(copyBx)copyBx.insertBefore(imgWrap,copyBx.firstChild);
-  }
+  // Build copy options (always show 3 — fall back to demo content if Claude returned fewer)
+  lastClaudeOptions = claudeData;
+  const opts = (claudeData && claudeData.options && claudeData.options.length>=1)
+    ? claudeData.options
+    : [
+        {label:'Bold',     headline:'Send Money. Save Time. Live More.', body:'With MTN MoMo, managing your money is as easy as a tap. Send to family, pay bills, buy data — all from your phone.', cta:'Activate Now'},
+        {label:'Emotional',headline:'Closer than you think.',             body:'No matter how far they are, MTN MoMo brings them home. Instant transfers, every day, anywhere in Uganda.', cta:'Send Money'},
+        {label:'Witty',    headline:'Yes. Right from your phone.',         body:'Pay rent, settle bills, send airtime, split a meal. MoMo makes it laughably easy.', cta:'Try MoMo Free'}
+      ];
+  // Pad/trim to 3
+  while(opts.length<3) opts.push(opts[opts.length-1]);
+  const copyWrap = document.getElementById('copy-options');
+  copyWrap.innerHTML = opts.slice(0,3).map((o,i)=>`
+    <div class="copy-opt ${i===0?'on':''}" onclick="selectCopy(${i})" data-idx="${i}">
+      <div class="copy-opt-tag">${(o.label||['Bold','Emotional','Witty'][i])}</div>
+      <div class="copy-opt-hl">${escapeHtml(o.headline||'')}</div>
+      <div class="copy-opt-bd">${escapeHtml(o.body||'')}</div>
+      <div class="copy-opt-cta">${escapeHtml(o.cta||'Learn More')} \u2192</div>
+    </div>
+  `).join('');
+  selectedCopyIdx = 0;
 
+  // Build image gallery (always show 3 picks)
+  lastGeneratedImages = imgList || [];
+  const gal = document.getElementById('img-gallery');
+  const imgCount = 3;
+  gal.innerHTML='';
+  for(let i=0;i<imgCount;i++){
+    const pick = document.createElement('div');
+    pick.className='img-pick';
+    pick.dataset.idx = i;
+    pick.onclick = ()=>selectImg(i);
+    pick.innerHTML = `<div class="img-pick-check"></div>`;
+
+    if(lastGeneratedImages[i]){
+      // Use real generated image
+      const realImg = lastGeneratedImages[i];
+      realImg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      pick.appendChild(realImg);
+    } else {
+      // Fallback gradient + emoji placeholder
+      const fallback = document.createElement('div');
+      fallback.className='img-pick-fallback';
+      fallback.style.background = `linear-gradient(${135 + i*60}deg,#FFCB05,#${['f59e0b','ff8a4c','d97706'][i]||'f59e0b'})`;
+      fallback.textContent = ['🌅','📱','💛'][i];
+      pick.appendChild(fallback);
+    }
+    gal.appendChild(pick);
+  }
+  selectedImgIdx = -1;
+  document.getElementById('assemble-sel-status').textContent = 'No image chosen yet';
+  const ab = document.getElementById('assemble-btn');
+  ab.disabled = true;
+  ab.style.opacity = '.5';
+  ab.style.cursor = 'not-allowed';
+
+  // Build download grid
   const dlg=document.getElementById('dl-gr');const files=[];
-  for(let i=0;i<selQty;i++){
-    if(selFmt==='figma'||selFmt==='both')files.push({n:`${base}_v${i+1}.fig`,s:`Figma · Editable · ${(2.1+i*.4).toFixed(1)} MB`});
-    if(selFmt==='psd'||selFmt==='both')  files.push({n:`${base}_v${i+1}.psd`,s:`PSD · Editable · ${(6.1+i*.8).toFixed(1)} MB`});
-    files.push({n:`${base}_v${i+1}_preview.png`,s:`PNG · ${selRatioLbl} · 1.1 MB`});
+  for(let i=0;i<qty;i++){
+    if(selFmt==='figma'||selFmt==='both')files.push({n:`${base}_v${i+1}.fig`,s:`Figma \u00b7 Editable \u00b7 ${(2.1+i*.4).toFixed(1)} MB`});
+    if(selFmt==='psd'||selFmt==='both')  files.push({n:`${base}_v${i+1}.psd`,s:`PSD \u00b7 Editable \u00b7 ${(6.1+i*.8).toFixed(1)} MB`});
+    files.push({n:`${base}_v${i+1}_preview.png`,s:`PNG \u00b7 ${lbl} \u00b7 1.1 MB`});
   }
   dlg.innerHTML=files.map(f=>`<div class="dl-it" onclick="alert('In production: downloads ${f.n}')"><div class="dl-ic"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v6M5.5 9l2.5 2.5L10.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="dl-nm">${f.n}</div><div class="dl-sz">${f.s}</div></div></div>`).join('');
+
   document.getElementById('res-sec').style.display='block';
   document.getElementById('res-sec').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function selectCopy(i){
+  selectedCopyIdx = i;
+  document.querySelectorAll('.copy-opt').forEach((el,idx)=>{
+    el.classList.toggle('on', idx===i);
+  });
+}
+
+function selectImg(i){
+  selectedImgIdx = i;
+  document.querySelectorAll('.img-pick').forEach((el,idx)=>{
+    el.classList.toggle('on', idx===i);
+  });
+  const labels=['Wide / Lifestyle','Close-up / Portrait','Graphic / Product'];
+  document.getElementById('assemble-sel-status').textContent = `Visual ${i+1} (${labels[i]||'option '+(i+1)})`;
+  const ab = document.getElementById('assemble-btn');
+  ab.disabled = false;
+  ab.style.opacity = '1';
+  ab.style.cursor = 'pointer';
+}
+
+function assembleSelection(){
+  if(selectedImgIdx<0){alert('Please select an image first.');return;}
+  const ab = document.getElementById('assemble-btn');
+  ab.disabled = true;
+  ab.innerHTML = '<span class="spin">\u21bb</span> Assembling...';
+  setTimeout(()=>{
+    document.getElementById('img-pick-status').textContent = 'Assembled';
+    document.getElementById('img-pick-status').className = 'chip g';
+    document.getElementById('assemble-sel-status').innerHTML = `<strong>\u2713 Sent to Figma assembly</strong> \u2014 your editable file is ready below`;
+    ab.innerHTML = '\u2713 Assembled';
+    ab.style.background = 'var(--grn)';
+    ab.style.borderColor = 'var(--grn)';
+  }, 1400);
 }
 
 function resetBrief(){
@@ -1749,6 +2295,58 @@ function removeUserRow(rowId){
 }
 
 // ─── UTIL ───
+
+// ─── BRAND SKILLS (Admin) ───
+const SKILL_DATA = {
+  mtn:  {name:'MTN Uganda',   desc:'Telecom \u00b7 v2.1 \u00b7 Last compiled 2 days ago', icon:'M', bg:'#FFCB05', fg:'#0d0d08'},
+  absa: {name:'Absa Uganda',  desc:'Banking \u00b7 v1.8 \u00b7 Last compiled 5 days ago', icon:'A', bg:'#DC1E28', fg:'#fff'},
+  dstv: {name:'DStv Uganda',  desc:'Pay-TV \u00b7 v0.9 (Draft) \u00b7 Updated 1 week ago', icon:'D', bg:'#0064B4', fg:'#fff'}
+};
+function openSkill(id){
+  const d = SKILL_DATA[id];
+  if(!d) return;
+  document.getElementById('skill-detail-name').textContent = d.name;
+  document.getElementById('skill-detail-desc').innerHTML = d.desc;
+  const ic = document.getElementById('skill-detail-icon');
+  ic.textContent = d.icon;
+  ic.style.background = d.bg;
+  ic.style.color = d.fg;
+  document.getElementById('skill-detail').classList.add('on');
+  setTimeout(()=>document.getElementById('skill-detail').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function closeSkill(){
+  document.getElementById('skill-detail').classList.remove('on');
+}
+function skillTab(t,el){
+  document.querySelectorAll('.skill-tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.skill-tab-content').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('skill-tab-'+t).classList.add('on');
+}
+function saveSkillDraft(){
+  const s = document.getElementById('compile-status');
+  s.classList.remove('ok');
+  s.innerHTML = '<span style="color:var(--mu)">\u25cb</span> Draft saved (not yet compiled)';
+  setTimeout(()=>{
+    s.classList.add('ok');
+    s.innerHTML = '<span>\u2713</span> Compiled and active';
+  }, 2000);
+}
+function compileSkill(){
+  const s = document.getElementById('compile-status');
+  s.classList.remove('ok');
+  s.innerHTML = '<span class="spin">\u21bb</span> Compiling skill file...';
+  setTimeout(()=>{
+    s.classList.add('ok');
+    s.innerHTML = '<span>\u2713</span> Compiled and active \u2014 v2.2';
+  }, 1500);
+}
+function addNewBrand(){
+  const name = prompt('Brand name (e.g. "Stanbic Bank"):');
+  if(!name)return;
+  alert(`In production: opens a setup wizard to upload brand guide PDF or build the skill manually for "${name}". The platform extracts colours, voice, fonts and rules using Claude, then compiles the skill file.`);
+}
+
 function dl(ms){return new Promise(r=>setTimeout(r,ms));}
 
 </script>

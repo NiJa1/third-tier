@@ -1063,6 +1063,123 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
   .img-gallery-grid{grid-template-columns:1fr 1fr;}
 }
 
+
+/* ── DARK MODE ── */
+[data-theme="dark"]{
+  --bg:      #0c0c0a;
+  --bg2:     #161613;
+  --bg3:     #1f1f1a;
+  --sur:     #1a1a17;
+  --sur2:    #1f1f1a;
+  --ln:      #2a2a25;
+  --ln2:     #36362f;
+  --mu:      #6f6f66;
+  --so:      #a8a89e;
+  --tx:      #e8e8df;
+  --hd:      #f8f8f0;
+  --yellt:   #2a2410;
+  --purlt:   #1f1733;
+  --tealt:   #0d2629;
+  --redlt:   #2a1612;
+  --grnlt:   #0d2419;
+}
+[data-theme="dark"] body{ color: var(--tx); }
+[data-theme="dark"] .uz, [data-theme="dark"] .upload-ci-zone{ background:var(--sur2); }
+[data-theme="dark"] .copy-bx, [data-theme="dark"] .pip-row.act, [data-theme="dark"] .skill-explainer{
+  background:var(--bg2);
+}
+
+/* Theme toggle button */
+.theme-toggle{
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px solid var(--ln2);background:transparent;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--so);
+}
+.theme-toggle:hover{border-color:var(--hd);color:var(--hd);}
+.theme-toggle svg{width:16px;height:16px;}
+[data-theme="dark"] .theme-toggle .sun-icon{display:block;}
+[data-theme="dark"] .theme-toggle .moon-icon{display:none;}
+[data-theme="light"] .theme-toggle .sun-icon{display:none;}
+[data-theme="light"] .theme-toggle .moon-icon{display:block;}
+.theme-toggle .sun-icon{display:none;}
+.theme-toggle .moon-icon{display:block;}
+
+/* ── KEYBOARD SHORTCUTS PANEL ── */
+.shortcuts-overlay{
+  position:fixed;inset:0;background:rgba(13,13,8,.6);
+  display:none;align-items:center;justify-content:center;z-index:400;backdrop-filter:blur(4px);
+}
+.shortcuts-overlay.on{display:flex;}
+.shortcuts-modal{
+  background:var(--sur);border-radius:var(--r2);
+  width:100%;max-width:480px;
+  padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.3);
+}
+.shortcuts-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:17px;font-weight:800;color:var(--hd);margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.shortcuts-list{display:flex;flex-direction:column;gap:8px;}
+.shortcut-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 4px;font-size:13px;
+}
+.shortcut-desc{color:var(--so);}
+.shortcut-keys{display:flex;gap:4px;}
+.kbd{
+  background:var(--bg2);border:1px solid var(--ln);
+  padding:3px 8px;border-radius:5px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--hd);min-width:22px;text-align:center;
+}
+
+/* ── TOAST NOTIFICATIONS ── */
+.toast-stack{
+  position:fixed;bottom:24px;right:24px;z-index:500;
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+  pointer-events:none;
+}
+.toast{
+  background:var(--sur);border:1.5px solid var(--ln);
+  border-radius:var(--r);padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  animation:toastIn .3s cubic-bezier(.16,1,.3,1);
+  min-width:240px;max-width:380px;pointer-events:auto;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translateX(20px);}
+  to{opacity:1;transform:translateX(0);}
+}
+.toast.fade{animation:toastOut .25s forwards;}
+@keyframes toastOut{to{opacity:0;transform:translateX(20px);}}
+.toast-icon{
+  width:24px;height:24px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+}
+.toast.success .toast-icon{background:var(--grnlt);color:var(--grn);}
+.toast.error   .toast-icon{background:var(--redlt);color:var(--red);}
+.toast.info    .toast-icon{background:var(--yellt);color:var(--yeldk);}
+.toast-text{font-size:13px;color:var(--tx);line-height:1.4;}
+.toast-close{
+  background:transparent;border:none;color:var(--mu);cursor:pointer;
+  margin-left:auto;font-size:14px;padding:0 4px;
+}
+.toast-close:hover{color:var(--hd);}
+
+/* Skeleton loader */
+.skeleton{
+  background:linear-gradient(90deg,var(--bg2) 0%,var(--bg3) 50%,var(--bg2) 100%);
+  background-size:200% 100%;animation:shim 1.4s infinite;
+  border-radius:6px;
+}
+
+/* ── HISTORY ENHANCEMENTS ── */
+.bs-item-empty{
+  padding:24px 12px;text-align:center;color:var(--mu);font-size:12px;
+}
 </style>
 </head>
 <body>
@@ -1162,7 +1279,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
             <div class="bs-title">Brief Studio</div>
             <div class="bs-sub">Upload brief · Get editable design</div>
           </div>
-          <div class="bs-list">
+          <div class="bs-list" id="bs-list">
             <div class="slabel" style="padding:0 8px;margin-bottom:10px">Recent Jobs</div>
             <div class="bs-item on">
               <div class="bs-ico"><svg viewBox="0 0 15 15" fill="none"><rect x="2" y="1" width="9" height="13" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 5h5M4 7.5h5M4 10h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
@@ -1421,8 +1538,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
         <div class="img-canvas" id="img-canvas">
           <div class="cv-empty" id="cv-empty">
             <div class="cv-ico"><svg viewBox="0 0 26 26" fill="none"><rect x="2" y="2" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.8"/><circle cx="8.5" cy="8.5" r="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M2 17.5l5-5 4.5 4.5 3-3 7.5 7.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="cv-t">Image Studio</div>
-            <div class="cv-s">Write a prompt, pick a model and style, then generate</div>
+            <div class="cv-t">Generate Campaign Visuals</div>
+            <div class="cv-s">Describe a scene and watch Flux, DALL\u00b7E or Nano Banana bring it to life. Try one of these:</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:480px;margin-top:14px">
+              <button class="pill" style="font-size:12px" onclick="useSample('Young Ugandan woman walking through a vibrant Kampala neighbourhood at golden hour, cinematic lighting')">Kampala lifestyle</button>
+              <button class="pill" style="font-size:12px" onclick="useSample('Close-up portrait of a young African professional smiling, warm natural light, photorealistic')">Portrait</button>
+              <button class="pill" style="font-size:12px" onclick="useSample('Hands holding a smartphone against a bold yellow gradient background, minimalist product photography')">Product shot</button>
+            </div>
           </div>
           <div class="img-grid" id="img-grid" style="display:none"></div>
         </div>
@@ -1447,7 +1569,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
             <div class="chat-empty" id="chat-empty">
               <div class="ce-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a8 8 0 0 1 4.8 14.4V18H7.2v-1.6A8 8 0 0 1 12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 21h10M8.5 23h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
               <div class="ce-t">Ideas Studio</div>
-              <div class="ce-s">Choose a tool and start a conversation. Powered by Claude.</div>
+              <div class="ce-s">Pick a tool from the sidebar and start a conversation. Try these to get going:</div>
+              <div style="display:flex;flex-direction:column;gap:6px;max-width:420px;margin-top:14px;width:100%">
+                <button class="pill" style="font-size:12px;text-align:left;padding:8px 14px" onclick="useChatSample('Give me 5 campaign concepts for MTN MoMo targeting urban youth in Kampala')">Generate 5 campaign concepts for MTN MoMo</button>
+                <button class="pill" style="font-size:12px;text-align:left;padding:8px 14px" onclick="useChatSample('Write 3 Instagram captions for DStv\u2019s UCL Final \u2014 bold, sports-fan energy')">Instagram captions for DStv UCL Final</button>
+                <button class="pill" style="font-size:12px;text-align:left;padding:8px 14px" onclick="useChatSample('What motivates mobile money users in Kampala aged 18\u201328?')">Audience insight on Kampala 18\u201328</button>
+              </div>
             </div>
           </div>
           <div class="chat-bar">
@@ -1467,10 +1594,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;heigh
           </div>
         </div>
         <div class="ideas-saved">
-          <div class="is-h">Saved Outputs</div>
-          <div class="sv-card"><div class="sv-type">Campaign Concept</div><div class="sv-prev">"Beyond the Bar" — MTN Q2 MoMo push</div><div class="sv-t">Today 14:32</div></div>
-          <div class="sv-card"><div class="sv-type">Taglines</div><div class="sv-prev">10 options for DStv UCL Final</div><div class="sv-t">Today 11:08</div></div>
-          <div class="sv-card"><div class="sv-type">Ad Copy</div><div class="sv-prev">Absa Easter — 3 variants</div><div class="sv-t">Yesterday</div></div>
+          <div class="is-h">Saved Chats</div>
+          <div class="bs-item-empty">No conversations yet</div>
         </div>
       </div>
     </div>
@@ -1975,6 +2100,189 @@ Generating any copy, headline, body text, CTA, or visual brief for MTN Uganda.</
 
 <script>
 // ═══════════════════════════════════════════════════════
+// THIRD TIER — PERSISTENCE LAYER (IndexedDB)
+// All user data persists across page reloads in the browser.
+// In production, this is replaced by API calls to a real backend.
+// ═══════════════════════════════════════════════════════
+const DB_NAME = 'third-tier-db';
+const DB_VERSION = 1;
+let _db = null;
+
+function openDB(){
+  if(_db) return Promise.resolve(_db);
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onerror = () => reject(req.error);
+    req.onsuccess = () => { _db = req.result; resolve(_db); };
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if(!db.objectStoreNames.contains('jobs')){
+        const s = db.createObjectStore('jobs', {keyPath:'id'});
+        s.createIndex('created_at', 'created_at');
+        s.createIndex('studio', 'studio');
+      }
+      if(!db.objectStoreNames.contains('chats')){
+        const s = db.createObjectStore('chats', {keyPath:'id'});
+        s.createIndex('updated_at', 'updated_at');
+      }
+      if(!db.objectStoreNames.contains('brands')){
+        db.createObjectStore('brands', {keyPath:'id'});
+      }
+      if(!db.objectStoreNames.contains('settings')){
+        db.createObjectStore('settings', {keyPath:'key'});
+      }
+      if(!db.objectStoreNames.contains('images')){
+        const s = db.createObjectStore('images', {keyPath:'id'});
+        s.createIndex('created_at', 'created_at');
+      }
+    };
+  });
+}
+
+async function dbPut(store, value){
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(value);
+    tx.oncomplete = () => res(value);
+    tx.onerror = () => rej(tx.error);
+  });
+}
+async function dbGet(store, key){
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  });
+}
+async function dbAll(store, indexName=null, direction='prev'){
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readonly');
+    const target = indexName ? tx.objectStore(store).index(indexName) : tx.objectStore(store);
+    const req = target.openCursor(null, direction);
+    const out = [];
+    req.onsuccess = (e) => {
+      const cur = e.target.result;
+      if(cur){ out.push(cur.value); cur.continue(); }
+      else res(out);
+    };
+    req.onerror = () => rej(req.error);
+  });
+}
+async function dbDelete(store, key){
+  const db = await openDB();
+  return new Promise((res, rej) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).delete(key);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  });
+}
+
+function uid(){ return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,9); }
+
+// Convert image element to a stable data-URL we can persist
+async function imageElToDataURL(imgEl){
+  try {
+    if(!imgEl || !imgEl.src) return null;
+    if(imgEl.src.startsWith('data:')) return imgEl.src;
+    const r = await fetch(imgEl.src);
+    const blob = await r.blob();
+    return await new Promise(res => {
+      const fr = new FileReader();
+      fr.onloadend = () => res(fr.result);
+      fr.readAsDataURL(blob);
+    });
+  } catch(e){ console.warn('image conversion failed', e); return null; }
+}
+
+// ═══════════════════════════════════════════════════════
+// TOAST NOTIFICATIONS
+// ═══════════════════════════════════════════════════════
+function toast(message, kind='info', duration=3500){
+  const stack = document.getElementById('toast-stack');
+  if(!stack) return;
+  const t = document.createElement('div');
+  t.className = 'toast ' + kind;
+  const icons = { success:'✓', error:'!', info:'i' };
+  t.innerHTML = `
+    <div class="toast-icon">${icons[kind]||'i'}</div>
+    <div class="toast-text">${message}</div>
+    <button class="toast-close" onclick="this.parentElement.classList.add('fade');setTimeout(()=>this.parentElement.remove(),250)">&times;</button>
+  `;
+  stack.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('fade');
+    setTimeout(() => t.remove(), 250);
+  }, duration);
+}
+
+// ═══════════════════════════════════════════════════════
+// THEME TOGGLE
+// ═══════════════════════════════════════════════════════
+async function loadTheme(){
+  try {
+    const saved = await dbGet('settings', 'theme');
+    const theme = saved?.value || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch(e){
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+}
+async function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  try { await dbPut('settings', {key:'theme', value:next}); } catch(e){}
+  toast(`${next.charAt(0).toUpperCase()+next.slice(1)} mode`, 'info', 1500);
+}
+
+// ═══════════════════════════════════════════════════════
+// KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════════════════════
+function showShortcuts(){ document.getElementById('shortcuts-overlay').classList.add('on'); }
+function hideShortcuts(){ document.getElementById('shortcuts-overlay').classList.remove('on'); }
+
+document.addEventListener('keydown', (e) => {
+  // Skip if user is typing in an input/textarea/contenteditable
+  const inField = e.target.matches('input, textarea, [contenteditable="true"]');
+  const cmdEnter = (e.metaKey || e.ctrlKey) && e.key === 'Enter';
+
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal-overlay.on, .shortcuts-overlay.on').forEach(m => m.classList.remove('on'));
+    return;
+  }
+
+  // Cmd/Ctrl+Enter sends chat or triggers main action even from inside fields
+  if(cmdEnter){
+    if(document.getElementById('studio-ideas')?.classList.contains('on')){
+      e.preventDefault(); sendChat();
+    } else if(document.getElementById('studio-image')?.classList.contains('on')){
+      e.preventDefault(); genImgs();
+    }
+    return;
+  }
+
+  if(inField) return;
+
+  if(e.key === '1'){ goStudio('brief',  document.querySelectorAll('.tn-btn')[0]); }
+  else if(e.key === '2'){ goStudio('image',  document.querySelectorAll('.tn-btn')[1]); }
+  else if(e.key === '3'){ goStudio('ideas',  document.querySelectorAll('.tn-btn')[2]); }
+  else if(e.key.toLowerCase() === 't'){ toggleTheme(); }
+  else if(e.key === '?' || (e.shiftKey && e.key === '/')){ showShortcuts(); }
+});
+
+// Init theme as soon as DOM is ready
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', loadTheme);
+} else {
+  loadTheme();
+}
+
+// ═══════════════════════════════════════════════════════
 // THIRD TIER — AI ENGINE
 // Mode: 'puter' (free, user-pays) | 'api' (agency-pays)
 // To switch to API mode: set AI_MODE = 'api' and fill API_KEYS
@@ -2021,6 +2329,9 @@ function launch(email){
   document.getElementById('tn-av').textContent=av||'NJ';
   document.getElementById('auth').style.display='none';
   document.getElementById('shell').style.display='block';
+  // Persist user, load history, theme
+  try { dbPut('settings', {key:'user', value:{email, name:nm}}); } catch(e){}
+  initOnLogin();
 }
 
 // ─── STUDIO SWITCH ───
@@ -2116,19 +2427,73 @@ async function startPip(){
     updateProgressBar(((i+1)/PSTEPS.length)*100);
   }
 
-  // Step 4: REAL Claude call — generate THREE copy variants
+  // Step 4: REAL Claude call — detect brand + generate THREE copy variants
   let claudeOptions = null;
+  let detectedBrand = null;
   try {
     activatePipStep(3);
-    document.getElementById('pd3').textContent='Claude writing 3 copy variants...';
 
-    const brandSel = document.querySelector('.bsel')?.value || 'Auto-detect';
+    const brandSel = document.querySelector('.bsel')?.value || 'Auto-detect from brief';
+    const isAutoDetect = /auto-detect/i.test(brandSel);
     const briefContext = briefFileContent
-      ? `Brief document content:\n${briefFileContent}`
-      : `Client brief for: ${file.name}`;
+      ? briefFileContent.slice(0, 6000)
+      : `Brief filename: ${file.name}`;
 
-    const systemPrompt = `You are a senior advertising copywriter at a top East African agency. You write punchy, culturally relevant ad copy for Ugandan brands. Always respond with ONLY valid JSON, no markdown fences.`;
-    const userPrompt = `${briefContext}\n\nBrand: ${brandSel}\nAspect ratio: ${selRatioLbl}\n\nWrite THREE distinct ad copy variants. Return ONLY valid JSON in this exact shape:\n{"client":"brand name","campaign_type":"type","objective":"one sentence","options":[{"label":"Bold","headline":"...","body":"...","cta":"..."},{"label":"Emotional","headline":"...","body":"...","cta":"..."},{"label":"Witty","headline":"...","body":"...","cta":"..."}]}\n\nKeep each headline under 8 words, body 2 sentences, CTA 2-4 words.`;
+    // STAGE 1: If auto-detect, first identify the brand from the brief content
+    if(isAutoDetect){
+      document.getElementById('pd3').textContent='Identifying brand from brief...';
+      try {
+        const detectSys = 'You analyse advertising briefs to identify the client brand. Respond with ONLY valid JSON, no markdown.';
+        const detectUsr = `Brief content:\n\n${briefContext}\n\nIdentify the client brand mentioned in this brief. Return ONLY: {"brand":"exact brand name as stated","industry":"industry sector","region":"country or region if mentioned"}\n\nIf no brand is clearly identified, return {"brand":"Unknown","industry":"Unknown","region":"Unknown"}.`;
+
+        if(AI_MODE==='puter'){
+          const dResp = await puter.ai.chat(detectUsr, {model:'claude-sonnet-4-6', systemPrompt:detectSys});
+          const dRaw = typeof dResp==='string'?dResp:(dResp?.message?.content?.[0]?.text||dResp?.content?.[0]?.text||'');
+          detectedBrand = JSON.parse(dRaw.replace(/```json|```/g,'').trim());
+        } else {
+          const r = await fetch('https://api.anthropic.com/v1/messages',{
+            method:'POST',
+            headers:{'Content-Type':'application/json','x-api-key':API_KEYS.anthropic,'anthropic-version':'2023-06-01'},
+            body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:200,system:detectSys,messages:[{role:'user',content:detectUsr}]})
+          });
+          const data=await r.json();
+          const raw=data?.content?.[0]?.text||'';
+          detectedBrand = JSON.parse(raw.replace(/```json|```/g,'').trim());
+        }
+      } catch(e){ console.warn('brand detection failed', e); detectedBrand = null; }
+    } else {
+      // User explicitly picked a brand — use it directly
+      detectedBrand = { brand: brandSel, industry: 'specified by user', region: 'East Africa' };
+    }
+
+    const finalBrand    = detectedBrand?.brand    || 'the client';
+    const finalIndustry = detectedBrand?.industry || 'the relevant industry';
+    const finalRegion   = detectedBrand?.region   || 'East Africa';
+
+    // STAGE 2: Generate copy with the detected brand baked into every layer
+    document.getElementById('pd3').textContent=`Writing copy for ${finalBrand}...`;
+
+    const systemPrompt = `You are a senior advertising copywriter. You write punchy, culturally relevant ad copy.
+
+CRITICAL RULES:
+- The client for THIS brief is: ${finalBrand} (${finalIndustry}, ${finalRegion}).
+- Stay strictly on-brand for ${finalBrand}. Reflect their products, services, tone and audience.
+- Never mention or reference any other brand (especially do NOT default to MTN, Absa, or DStv unless THIS brief is for them).
+- Reflect the actual brief contents — do not invent products that are not mentioned in the brief.
+- Always respond with ONLY valid JSON, no markdown fences.`;
+
+    const userPrompt = `Client: ${finalBrand}
+Industry: ${finalIndustry}
+Region: ${finalRegion}
+Aspect ratio: ${selRatioLbl}
+
+Brief document:
+${briefContext}
+
+Write THREE distinct ad copy variants for ${finalBrand} based on the brief above. Return ONLY valid JSON:
+{"client":"${finalBrand}","campaign_type":"derived from brief","objective":"derived from brief","options":[{"label":"Bold","headline":"...","body":"...","cta":"..."},{"label":"Emotional","headline":"...","body":"...","cta":"..."},{"label":"Witty","headline":"...","body":"...","cta":"..."}]}
+
+Each headline under 8 words. Body 2 sentences. CTA 2-4 words. Every variant must reference what the brief actually says — products, audience, offers, dates if applicable.`;
 
     if(AI_MODE==='puter'){
       const resp = await puter.ai.chat(userPrompt, {model:'claude-sonnet-4-6', systemPrompt});
@@ -2138,15 +2503,18 @@ async function startPip(){
       const r = await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':API_KEYS.anthropic,'anthropic-version':'2023-06-01'},
-        body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:systemPrompt,messages:[{role:'user',content:userPrompt}]})
+        body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,system:systemPrompt,messages:[{role:'user',content:userPrompt}]})
       });
       const data=await r.json();
       const raw=data?.content?.[0]?.text||'';
       try{claudeOptions=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){claudeOptions=null;}
     }
 
+    // Make sure client is set for downstream image generation
+    if(claudeOptions && !claudeOptions.client) claudeOptions.client = finalBrand;
+
     completePipStep(3);
-    document.getElementById('pd3').textContent = claudeOptions ? '3 copy variants generated' : 'Copy generated';
+    document.getElementById('pd3').textContent = claudeOptions ? `3 copy variants for ${finalBrand}` : 'Copy generated';
     document.getElementById('pt3').textContent=((Date.now()-t0)/1000).toFixed(1)+'s';
     updateProgressBar((4/PSTEPS.length)*100);
   } catch(err){
@@ -2164,13 +2532,45 @@ async function startPip(){
     document.getElementById('pd4').textContent='Drafting visual concepts...';
 
     // Step 5a: Claude as creative director — generate 3 visual concept descriptions
-    // (scenes/moods only, never brand names or text)
+    // Detailed, professional prompts produce far better Flux output
     const objective = claudeOptions?.objective || 'campaign objective';
+    const clientForImage = claudeOptions?.client || detectedBrand?.brand || 'the brand';
+    const industryForImage = detectedBrand?.industry || 'the relevant industry';
+    const regionForImage = detectedBrand?.region || 'East Africa';
     const briefSnip = (briefFileContent||'').slice(0,2500);
 
-    const conceptSystemPrompt = `You are an art director at a top advertising agency. You write image generation prompts that describe ONLY the scene, subject, lighting, mood, and composition. You NEVER include brand names, product names, logos, words, headlines, signs, billboards, posters, screens with text, or anything that an image AI might render as text. The visuals are text-free backgrounds — text and logos are added later in Figma. Always respond with ONLY valid JSON, no markdown.`;
+    const conceptSystemPrompt = `You are an award-winning art director writing image prompts for Flux Pro 1.1.
+Your prompts must be RICH AND DETAILED — every prompt should specify:
+- Subject matter and what they are doing
+- Setting and environment specifics
+- Lighting (golden hour, soft window light, studio lighting, etc.)
+- Camera angle and lens (wide angle, 85mm portrait, etc.)
+- Mood and emotional tone
+- Style references (cinematic, editorial, advertising photography)
+- Technical quality markers (photorealistic, sharp focus, depth of field)
 
-    const conceptUserPrompt = `Brief objective: ${objective}\n\nBrief excerpt:\n${briefSnip}\n\nGenerate THREE distinct visual concept prompts for an image AI (Flux). Each must capture the IDEA of the brief through scene, subject and emotion only — NO brand names, NO text, NO logos, NO signs, NO billboards. Each concept should be a different angle: wide environmental, intimate close-up, and bold conceptual.\n\nReturn ONLY valid JSON:\n{"concepts":[{"label":"Wide / Lifestyle","prompt":"detailed scene description, photorealistic, no text"},{"label":"Close-up / Portrait","prompt":"..."},{"label":"Bold / Conceptual","prompt":"..."}]}`;
+ABSOLUTE RULES:
+- NEVER include brand names, product names, logos, written words, headlines, captions, signs, billboards, posters, or readable text of any kind
+- Backgrounds must be visually clean — no walls with text, no phone screens with UI, no shop signage
+- Visuals are pure compositions; text/logos are added later in Figma
+
+Always respond with ONLY valid JSON, no markdown fences.`;
+
+    const conceptUserPrompt = `Client: ${clientForImage} (${industryForImage}, ${regionForImage})
+Campaign objective: ${objective}
+
+Brief excerpt:
+${briefSnip}
+
+Generate THREE distinct visual concepts for this campaign. Each should be RICH, DETAILED, and PROFESSIONAL — at least 50 words per prompt. The visuals should evoke the brand's industry and the campaign's emotional intent without naming the brand.
+
+Three angles required:
+1. Wide / Lifestyle — environmental, real-world setting, people in context
+2. Close-up / Portrait — intimate, emotional, single subject focus
+3. Bold / Conceptual — minimalist, striking, product-led or symbolic
+
+Return ONLY valid JSON:
+{"concepts":[{"label":"Wide / Lifestyle","prompt":"detailed prompt with subject, setting, lighting, lens, mood, style — at least 50 words"},{"label":"Close-up / Portrait","prompt":"..."},{"label":"Bold / Conceptual","prompt":"..."}]}`;
 
     if(AI_MODE==='puter'){
       try {
@@ -2193,12 +2593,13 @@ async function startPip(){
       } catch(e){console.warn('concept gen failed',e);}
     }
 
-    // Fallback concepts if Claude failed
+    // Fallback concepts if Claude failed — generic, brand-agnostic
     if(visualConcepts.length<3){
+      const region = regionForImage || 'East Africa';
       visualConcepts = [
-        {label:'Wide / Lifestyle',  prompt:'Wide cinematic photograph of a young African woman walking through a vibrant Kampala neighbourhood at golden hour, holding a smartphone, smiling, motion blur, warm orange and yellow tones, photorealistic, depth of field, no text, no signs, no logos, no billboards, no posters, blank walls'},
-        {label:'Close-up / Portrait', prompt:'Intimate close-up portrait of a young Ugandan professional looking at her phone with a relaxed satisfied smile, soft natural window light, shallow depth of field, photorealistic skin texture, neutral background, no text, no logos, no screens with text'},
-        {label:'Bold / Conceptual',   prompt:'Minimalist conceptual product photography of hands holding a smartphone against a clean yellow gradient background, soft studio lighting, premium feel, high contrast, photorealistic, no text overlays, no logos, no UI elements visible on screen'}
+        {label:'Wide / Lifestyle',  prompt:`Wide cinematic photograph of a confident professional in their ${industryForImage} workplace, ${region} setting, golden hour natural light streaming through windows, shot on 35mm lens, shallow depth of field, warm authentic colour palette, photorealistic, advertising campaign quality, sharp detail, magazine-style composition, environment tells a story without any signage or text on walls`},
+        {label:'Close-up / Portrait', prompt:`Intimate close-up portrait of a thoughtful person at the centre of the ${industryForImage} target audience, soft natural window light from the left, 85mm portrait lens, beautiful bokeh background, photorealistic skin texture and detail, subtle confident smile, neutral clean studio backdrop, editorial photography style, sharp focus on eyes, premium magazine quality`},
+        {label:'Bold / Conceptual',   prompt:`Minimalist conceptual still-life product photography evoking the essence of ${industryForImage}, clean gradient background with single dominant brand-appropriate colour tone, soft directional studio lighting from above, high contrast and dramatic shadows, premium luxury feel, photorealistic with sharp focus, hero shot composition, no logos visible, no text or labels on any surface`}
       ];
     }
 
@@ -2208,14 +2609,35 @@ async function startPip(){
     const NEGATIVE = 'text, words, letters, typography, writing, captions, headlines, logos, brand names, watermarks, signatures, signs, billboards, posters, banners, labels, screens with text, UI elements, social media interface, phone interface, app interface, low quality, blurry, distorted, deformed, ugly, amateur';
 
     if(AI_MODE==='puter'){
-      const promises = visualConcepts.slice(0,3).map(c =>
-        puter.ai.txt2img(c.prompt + ' Absolutely no text, no logos, no signs of any kind in the image.', {
-          model:'black-forest-labs/flux-schnell'
-        })
-        .catch(e=>{console.warn('image fail',e);return null;})
-      );
+      // Flux Pro 1.1 produces dramatically higher quality than Schnell.
+      // We append quality and negative cues to every prompt for consistency.
+      const QUALITY_SUFFIX = ', professional advertising photography, sharp focus, high detail, 8k, masterpiece, magazine quality, beautiful composition';
+      const NEG_SUFFIX = ' --no text, words, letters, typography, captions, headlines, logos, brand names, watermarks, signatures, signs, billboards, posters, banners, labels, screens with text, UI elements, phone interface, blurry, low quality, distorted, amateur, oversaturated, underexposed';
+
+      const generateOne = async (concept, attempt = 0) => {
+        try {
+          const fullPrompt = concept.prompt + QUALITY_SUFFIX + NEG_SUFFIX;
+          // Try Flux Pro 1.1 first (highest quality)
+          return await puter.ai.txt2img(fullPrompt, {
+            model: 'black-forest-labs/flux-1.1-pro'
+          });
+        } catch(e1){
+          console.warn('Flux Pro failed, falling back to Schnell', e1);
+          // Fallback to Flux Schnell if Pro fails (e.g. quota issues)
+          try {
+            return await puter.ai.txt2img(concept.prompt + QUALITY_SUFFIX + NEG_SUFFIX, {
+              model: 'black-forest-labs/flux-schnell'
+            });
+          } catch(e2){
+            console.warn('Both Flux models failed', e2);
+            return null;
+          }
+        }
+      };
+
+      const promises = visualConcepts.slice(0,3).map(c => generateOne(c));
       const results = await Promise.all(promises);
-      results.forEach(r=>{if(r)generatedImages.push(r);});
+      results.forEach(r => { if(r) generatedImages.push(r); });
     }
 
     completePipStep(4);
@@ -2241,6 +2663,33 @@ async function startPip(){
   await dl(400);
   pc.style.display='none';
   showRes(file.name, claudeOptions, generatedImages, visualConcepts);
+
+  // Persist the completed job to IndexedDB
+  try {
+    const imageData = await Promise.all(
+      generatedImages.slice(0,3).map(im => imageElToDataURL(im))
+    );
+    const job = {
+      id: uid(),
+      studio: 'brief',
+      filename: file.name,
+      created_at: Date.now(),
+      ratio: selRatioLbl,
+      qty: selQty,
+      format: selFmt,
+      brand: document.querySelector('.bsel')?.value || 'Auto-detect',
+      claude: claudeOptions,
+      concepts: visualConcepts,
+      images: imageData.filter(Boolean),
+      duration_ms: Date.now() - t0
+    };
+    await dbPut('jobs', job);
+    await refreshBriefHistory();
+    toast('Brief processed and saved', 'success');
+  } catch(e){
+    console.warn('Could not persist job', e);
+    toast('Job ran but could not be saved locally', 'error');
+  }
 }
 
 function activatePipStep(i){
@@ -2299,7 +2748,7 @@ function showRes(fname, claudeData, imgList, concepts){
   document.getElementById('r-del').textContent=`${qty} \u00d7 ${lbl} ${fmtTxt}`;
 
   if(claudeData){
-    document.getElementById('r-client').textContent=claudeData.client||'MTN Uganda';
+    document.getElementById('r-client').textContent=claudeData.client||'Brand not detected';
   }
 
   // Build copy options (always show 3 — fall back to demo content if Claude returned fewer)
@@ -2307,9 +2756,9 @@ function showRes(fname, claudeData, imgList, concepts){
   const opts = (claudeData && claudeData.options && claudeData.options.length>=1)
     ? claudeData.options
     : [
-        {label:'Bold',     headline:'Send Money. Save Time. Live More.', body:'With MTN MoMo, managing your money is as easy as a tap. Send to family, pay bills, buy data — all from your phone.', cta:'Activate Now'},
-        {label:'Emotional',headline:'Closer than you think.',             body:'No matter how far they are, MTN MoMo brings them home. Instant transfers, every day, anywhere in Uganda.', cta:'Send Money'},
-        {label:'Witty',    headline:'Yes. Right from your phone.',         body:'Pay rent, settle bills, send airtime, split a meal. MoMo makes it laughably easy.', cta:'Try MoMo Free'}
+        {label:'Bold',     headline:'Could not generate copy', body:'Claude was unable to interpret this brief. Please try uploading again or check your internet connection.', cta:'Retry'},
+        {label:'Emotional',headline:'Copy generation failed',  body:'The AI did not return a valid response. Click Retry to try again.', cta:'Retry'},
+        {label:'Witty',    headline:'Something went wrong',    body:'No copy was generated for this brief. Please retry or contact support.', cta:'Retry'}
       ];
   // Pad/trim to 3
   while(opts.length<3) opts.push(opts[opts.length-1]);
@@ -2423,7 +2872,95 @@ function resetBrief(){
   if(inp) inp.value = '';
 }
 
+
+// ═══════════════════════════════════════════════════════
+// BRIEF STUDIO — HISTORY SIDEBAR
+// ═══════════════════════════════════════════════════════
+async function refreshBriefHistory(){
+  try {
+    const jobs = await dbAll('jobs', 'created_at', 'prev');
+    const briefs = jobs.filter(j => j.studio === 'brief');
+    const list = document.getElementById('bs-list');
+    if(!list) return;
+
+    if(briefs.length === 0){
+      list.innerHTML = '<div class="slabel" style="padding:0 8px;margin-bottom:10px">Recent Jobs</div><div class="bs-item-empty">No jobs yet — upload a brief above to get started</div>';
+      return;
+    }
+
+    let html = '<div class="slabel" style="padding:0 8px;margin-bottom:10px">Recent Jobs</div>';
+    briefs.slice(0, 12).forEach(job => {
+      const timeAgo = formatTimeAgo(job.created_at);
+      const briefName = (job.claude?.client || job.filename.replace(/\.[^.]+$/, '')).slice(0, 22);
+      const meta = `${job.ratio} \u00b7 ${job.format.toUpperCase()} \u00b7 ${timeAgo}`;
+      html += `<div class="bs-item" data-id="${job.id}" onclick="loadBriefJob('${job.id}')">
+        <div class="bs-ico"><svg viewBox="0 0 15 15" fill="none"><rect x="2" y="1" width="9" height="13" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 5h5M4 7.5h5M4 10h3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        <div><div class="bs-nm">${briefName}</div><div class="bs-mt">${meta}</div></div>
+        <span class="chip g" style="margin-left:auto">Done</span>
+      </div>`;
+    });
+    list.innerHTML = html;
+  } catch(e){ console.warn('history refresh failed', e); }
+}
+
+async function loadBriefJob(jobId){
+  try {
+    const job = await dbGet('jobs', jobId);
+    if(!job){ toast('Job not found', 'error'); return; }
+    // Re-display the result without re-running anything
+    document.getElementById('bzone').style.display = 'none';
+    document.getElementById('uploaded-card').style.display = 'flex';
+    document.getElementById('uc-name').textContent = job.filename;
+    document.getElementById('uc-meta').innerHTML = `Loaded from history \u00b7 <span style="color:var(--grn)">\u2713 Saved</span>`;
+    document.getElementById('oo-panel').style.display = 'none';
+    document.getElementById('pip-card').style.display = 'none';
+
+    // Recreate img elements from stored data URLs
+    const imgs = (job.images || []).map(dataUrl => {
+      const im = new Image();
+      im.src = dataUrl;
+      return im;
+    });
+    selRatioLbl = job.ratio || '1:1';
+    selQty = job.qty || 1;
+    selFmt = job.format || 'figma';
+    showRes(job.filename, job.claude, imgs, job.concepts || []);
+    toast(`Loaded: ${job.filename}`, 'success');
+  } catch(e){
+    console.warn('load job failed', e);
+    toast('Could not load job', 'error');
+  }
+}
+
+function formatTimeAgo(ts){
+  const diff = Date.now() - ts;
+  const s = Math.floor(diff/1000);
+  if(s < 60) return 'just now';
+  const m = Math.floor(s/60);
+  if(m < 60) return m + 'm ago';
+  const h = Math.floor(m/60);
+  if(h < 24) return h + 'h ago';
+  const d = Math.floor(h/24);
+  if(d < 7) return d + 'd ago';
+  return Math.floor(d/7) + 'w ago';
+}
+
+// Initial history load when shell becomes visible
+async function initOnLogin(){
+  try {
+    await openDB();
+    await refreshBriefHistory();
+    await refreshChatThreads();
+    await refreshImageGallery();
+  } catch(e){ console.warn('initOnLogin failed', e); }
+}
+
 // ─── IMAGE STUDIO ───
+
+function useSample(text){
+  const inp = document.getElementById('img-pr');
+  if(inp){ inp.value = text; inp.focus(); }
+}
 function selMdl(el){document.querySelectorAll('.model-r').forEach(r=>r.classList.remove('on'));el.classList.add('on');}
 function selP(el,g){const row=el.closest('.pills');row.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
 function toggleNeg(){const n=document.getElementById('neg-pr');n.style.display=n.style.display==='none'?'block':'none';}
@@ -2470,14 +3007,30 @@ async function genSingleImage(prompt,modelId,modelName,negPrompt,card,idx){
         const prevDiv=document.createElement('div');
         prevDiv.className='img-prev';
         prevDiv.style.cssText='background:#000;';
+        // Add lazy loading attribute for performance
+        if(imgEl.tagName === 'IMG'){ imgEl.loading = 'lazy'; }
         prevDiv.appendChild(imgEl);
 
         // Add overlay actions
         const ovl=document.createElement('div');
         ovl.className='img-ovl';
-        ovl.innerHTML=`<button class="img-act" onclick="openImgFull(this)">View</button><button class="img-act" onclick="downloadImg(this)">Save</button><button class="img-act" onclick="alert('Sends to Brief Studio')">Use in Brief</button>`;
+        ovl.innerHTML=`<button class="img-act" onclick="openImgFull(this)">View</button><button class="img-act" onclick="downloadImg(this)">Save</button><button class="img-act" onclick="useImageInBrief(this)">Use in Brief</button>`;
         prevDiv.appendChild(ovl);
         shimEl.replaceWith(prevDiv);
+
+        // Persist the image to IndexedDB
+        try {
+          const dataUrl = await imageElToDataURL(imgEl);
+          if(dataUrl){
+            await dbPut('images', {
+              id: uid(),
+              created_at: Date.now(),
+              prompt: prompt,
+              model: modelName,
+              data: dataUrl
+            });
+          }
+        } catch(e){ console.warn('image persistence failed', e); }
       }
     } else {
       // API mode fallback — show gradient placeholder
@@ -2487,9 +3040,10 @@ async function genSingleImage(prompt,modelId,modelName,negPrompt,card,idx){
     console.warn('Image gen error for slot',idx,err);
     const shimEl=card.querySelector('.shim');
     if(shimEl){
-      const[deg,c1,c2]=GRADS[Math.floor(Math.random()*GRADS.length)];
-      shimEl.outerHTML=`<div class="img-prev" style="background:linear-gradient(${deg},${c1},${c2})"><div style="font-size:50px;opacity:.5">🎨</div><div class="img-ovl"><button class="img-act" onclick="alert('View full image')">View</button><button class="img-act" onclick="alert('Download image')">Save</button></div></div>`;
+      const errMsg = (err?.message || String(err)).slice(0, 60);
+      shimEl.outerHTML = `<div class="img-prev" style="background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center"><div style="width:36px;height:36px;border-radius:50%;background:var(--redlt);display:flex;align-items:center;justify-content:center;color:var(--red);font-weight:700">!</div><div style="font-size:11px;color:var(--mu);font-weight:600">Generation failed</div><div style="font-size:10px;color:var(--mu);max-width:180px">${errMsg}</div><button class="btn" style="font-size:10px;padding:5px 12px;margin-top:4px" onclick="genImgs()">Retry</button></div>`;
     }
+    if(idx === 0) toast('Image generation failed \u2014 check your connection', 'error');
   }
 }
 
@@ -2497,7 +3051,30 @@ function openImgFull(btn){
   const img=btn.closest('.img-prev').querySelector('img');
   if(!img)return;
   const w=window.open('','_blank');
-  w.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="${img.src}" style="max-width:100%;max-height:100vh"></body></html>`);
+  w.document.write(`<html><body style="margin:0;background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh"><img src="${img.src}" style="max-width:100%;max-height:100vh">
+<!-- KEYBOARD SHORTCUTS MODAL -->
+<div class="shortcuts-overlay" id="shortcuts-overlay" onclick="hideShortcuts()">
+  <div class="shortcuts-modal" onclick="event.stopPropagation()">
+    <div class="shortcuts-title">
+      Keyboard Shortcuts
+      <button class="modal-close" onclick="hideShortcuts()">&times;</button>
+    </div>
+    <div class="shortcuts-list">
+      <div class="shortcut-row"><div class="shortcut-desc">Brief Studio</div><div class="shortcut-keys"><span class="kbd">1</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Image Studio</div><div class="shortcut-keys"><span class="kbd">2</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Ideas Studio</div><div class="shortcut-keys"><span class="kbd">3</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Toggle dark mode</div><div class="shortcut-keys"><span class="kbd">T</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Send chat / generate</div><div class="shortcut-keys"><span class="kbd">Cmd</span><span class="kbd">&#8629;</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Show this menu</div><div class="shortcut-keys"><span class="kbd">?</span></div></div>
+      <div class="shortcut-row"><div class="shortcut-desc">Close any modal</div><div class="shortcut-keys"><span class="kbd">Esc</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div class="toast-stack" id="toast-stack"></div>
+
+</body></html>`);
 }
 
 function downloadImg(btn){
@@ -2507,9 +3084,148 @@ function downloadImg(btn){
   a.href=img.src;a.download='third-tier-generation.png';a.click();
 }
 
+
+// ═══════════════════════════════════════════════════════
+// IMAGE STUDIO — GALLERY PERSISTENCE
+// ═══════════════════════════════════════════════════════
+async function refreshImageGallery(){
+  try {
+    const all = await dbAll('images', 'created_at', 'prev');
+    if(all.length === 0) return;
+
+    const grid = document.getElementById('img-grid');
+    const empty = document.getElementById('cv-empty');
+    if(!grid || !empty) return;
+
+    // Only show history if grid is empty (user hasn't generated anything new this session)
+    if(grid.children.length > 0) return;
+    empty.style.display = 'none';
+    grid.style.display = 'grid';
+
+    // Show a "Recent Generations" header
+    const header = document.createElement('div');
+    header.style.cssText = 'grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px';
+    header.innerHTML = '<div class="slabel" style="margin:0">Recent Generations</div><button class="btn" style="font-size:11px;padding:5px 11px" onclick="clearImageHistory()">Clear All</button>';
+    grid.appendChild(header);
+
+    all.slice(0, 12).forEach(rec => {
+      const card = document.createElement('div');
+      card.className = 'img-card';
+      card.innerHTML = `
+        <div class="img-prev" style="background:#000">
+          <img src="${rec.data}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div class="img-ovl">
+            <button class="img-act" onclick="openImgFull(this)">View</button>
+            <button class="img-act" onclick="downloadImg(this)">Save</button>
+          </div>
+        </div>
+        <div class="img-inf">
+          <div class="img-pr">${(rec.prompt||'').slice(0,80)}</div>
+          <div class="img-mr">
+            <span class="chip p" style="font-size:10px">${rec.model||'unknown'}</span>
+            <span style="font-size:10px;color:var(--mu);font-family:'DM Mono',monospace">${formatTimeAgo(rec.created_at)}</span>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  } catch(e){ console.warn('gallery refresh failed', e); }
+}
+
+async function clearImageHistory(){
+  if(!confirm('Clear all generated images from history?')) return;
+  try {
+    const db = await openDB();
+    const tx = db.transaction('images', 'readwrite');
+    tx.objectStore('images').clear();
+    tx.oncomplete = () => {
+      const grid = document.getElementById('img-grid');
+      if(grid){ grid.innerHTML = ''; grid.style.display = 'none'; }
+      const empty = document.getElementById('cv-empty');
+      if(empty) empty.style.display = 'flex';
+      toast('Image history cleared', 'success');
+    };
+  } catch(e){ toast('Could not clear history', 'error'); }
+}
+
+function useImageInBrief(btn){
+  toast('In production: image will be sent to Brief Studio for assembly', 'info');
+}
+
 // ─── IDEAS STUDIO (Live Claude) ───
 let chatMd='Campaign Concept',isTyping=false;
-const chatHistory=[];
+let chatHistory=[];
+let currentChatId = null;
+
+async function newChatThread(){
+  // Save current thread if it has content
+  await persistCurrentChat();
+  // Reset
+  chatHistory = [];
+  currentChatId = uid();
+  const msgs = document.getElementById('chat-msgs');
+  if(msgs){
+    msgs.innerHTML = '<div class="chat-empty" id="chat-empty"><div class="ce-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2a8 8 0 0 1 4.8 14.4V18H7.2v-1.6A8 8 0 0 1 12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 21h10M8.5 23h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><div class="ce-t">New conversation</div><div class="ce-s">Choose a tool and start chatting. Powered by Claude.</div></div>';
+  }
+  refreshChatThreads();
+}
+
+async function persistCurrentChat(){
+  if(!currentChatId || chatHistory.length === 0) return;
+  try {
+    const firstUserMsg = chatHistory.find(m => m.role === 'user');
+    const preview = (firstUserMsg?.content || '').slice(0, 80);
+    await dbPut('chats', {
+      id: currentChatId,
+      mode: chatMd,
+      preview: preview,
+      messages: chatHistory,
+      updated_at: Date.now()
+    });
+  } catch(e){ console.warn('chat persist failed', e); }
+}
+
+async function refreshChatThreads(){
+  try {
+    const all = await dbAll('chats', 'updated_at', 'prev');
+    const sv = document.querySelector('.ideas-saved');
+    if(!sv) return;
+    sv.innerHTML = '<div class="is-h" style="display:flex;align-items:center;justify-content:space-between">Saved Chats <button class="btn" style="font-size:10px;padding:3px 8px" onclick="newChatThread()">+ New</button></div>';
+    if(all.length === 0){
+      sv.innerHTML += '<div class="bs-item-empty">No conversations yet</div>';
+      return;
+    }
+    all.slice(0, 12).forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'sv-card';
+      card.onclick = () => loadChatThread(c.id);
+      card.innerHTML = `<div class="sv-type">${c.mode||'Chat'}</div><div class="sv-prev">${(c.preview||'untitled')}\u2026</div><div class="sv-t">${formatTimeAgo(c.updated_at)}</div>`;
+      sv.appendChild(card);
+    });
+  } catch(e){ console.warn('chat threads refresh failed', e); }
+}
+
+async function loadChatThread(id){
+  await persistCurrentChat();
+  try {
+    const c = await dbGet('chats', id);
+    if(!c) return;
+    currentChatId = id;
+    chatHistory = c.messages || [];
+    chatMd = c.mode || 'Campaign Concept';
+
+    const msgs = document.getElementById('chat-msgs');
+    msgs.innerHTML = '';
+    chatHistory.forEach(m => addMsg(m.role === 'user' ? 'user' : 'ai', m.content));
+    msgs.scrollTop = msgs.scrollHeight;
+
+    // Update mode pill
+    document.querySelectorAll('.cmode').forEach(el => {
+      el.classList.toggle('on', el.textContent === chatMd || (chatMd === 'Campaign Concept' && el.textContent === 'Campaign Concept'));
+    });
+    toast(`Loaded: ${c.preview.slice(0,30)}`, 'success', 2000);
+  } catch(e){ toast('Could not load chat', 'error'); }
+}
 
 function selTool(el,t){
   document.querySelectorAll('.tool-it').forEach(x=>x.classList.remove('on'));el.classList.add('on');
@@ -2541,6 +3257,28 @@ function getPH(m){
 }
 
 function ckd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
+
+
+
+function retryLastMessage(){
+  const lastUser = [...chatHistory].reverse().find(m => m.role === 'user');
+  if(!lastUser){ toast('Nothing to retry', 'info'); return; }
+  // Pop the failed assistant turn (if any)
+  document.querySelectorAll('.mw.ai').forEach(el => {
+    if(el.querySelector('.mb')?.style.background?.includes('redlt') ||
+       el.innerHTML.includes('Connection failed')){
+      el.remove();
+    }
+  });
+  // Re-trigger send with the last user content
+  const inp = document.getElementById('ci');
+  if(inp){ inp.value = lastUser.content; sendChat(); }
+}
+
+function useChatSample(text){
+  const inp = document.getElementById('ci');
+  if(inp){ inp.value = text; inp.focus(); }
+}
 
 async function sendChat(){
   const inp=document.getElementById('ci'),txt=inp.value.trim();
@@ -2603,13 +3341,18 @@ async function sendChat(){
     }
 
     chatHistory.push({role:'assistant',content:fullResponse});
-    addSaved(chatMd,txt.slice(0,55));
+    if(!currentChatId) currentChatId = uid();
+    await persistCurrentChat();
+    refreshChatThreads();
   } catch(err){
     console.warn('Claude chat error',err);
     ti.remove();
-    addMsg('ai',`I couldn't connect right now. Make sure you're signed into Puter (a prompt should have appeared). If you're in API mode, check your API key in the settings.
-
-Error: ${err.message||err}`);
+    const msgs = document.getElementById('chat-msgs');
+    const errBox = document.createElement('div');
+    errBox.className = 'mw ai';
+    errBox.innerHTML = `<div class="mb" style="background:var(--redlt);border-color:var(--red);color:var(--red)"><strong>Connection failed</strong><br><br>${err.message||err}<br><br><button class="btn" style="font-size:11px;padding:6px 12px" onclick="retryLastMessage()">Retry</button></div>`;
+    msgs.appendChild(errBox);
+    toast('Could not reach Claude \u2014 check your connection', 'error');
   }
 
   msgs.scrollTop=msgs.scrollHeight;
